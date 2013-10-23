@@ -1,0 +1,726 @@
+/* Global */
+
+body {
+	font-family:'Arial', sans-serif;
+	font-weight: 400;
+	font-size: 14px;
+	line-height:20px;
+	color: #717171;
+	background-color:#ffffff;
+	overflow-x:hidden;
+}
+img {
+	max-width: 100%;
+}
+a:link {
+	color: #00aeff;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+a:visited {
+	color: #00aeff;
+	text-decoration: none;
+}
+
+.fright{float:right;
+	padding-right:25px;
+}
+.fleft{float:left;
+	padding-left:25px;
+}
+
+.left {
+	margin-left: 20px;
+}
+
+
+/* Navigation */
+
+.menu {
+	position:fixed;
+	top:0px;
+	width:100%;
+	height:74px;
+	background-color:#1b1b1b;
+	z-index:9999;
+}
+#logo {
+	margin-bottom:0;
+	margin-left:-5px;
+}
+
+#nav {
+	text-align: right;
+}
+.navigation{
+	float: right;
+	list-style: none;
+	margin: 0;
+}
+ul.navigation {
+	margin:30px 0 0 0;
+	padding:0;
+}
+.navigation li{
+	float: left;
+	text-align:left;
+	padding:0;
+	margin-left:30px;
+	text-transform:none;
+	background:none;
+	font-family: 'Droid Sans', sans-serif;
+	font-weight:400;
+	font-size:14px;
+	line-height:20px;
+	color:#a6a6a6;
+}
+.navigation li:first-child{margin-left:0;}
+.navigation li:hover,
+.navigation .active {
+	cursor:pointer;
+	color: #00aeff;
+}
+
+
+
+/* General Slides */ 
+
+.slide{
+	overflow:hidden;
+	background-attachment: fixed;
+	width:100%;
+	height:auto;
+	position: relative;
+	padding:0;
+}
+h1 {
+	margin:0;
+	text-transform:uppercase;
+	text-align:center;
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 57px;
+	line-height: 70px;
+	color:#343434;
+	font-weight: 400;
+}
+
+h2 {
+	margin:0;
+	padding:0;
+	text-transform:none;
+	text-align:center;
+	font-family:Arial;
+	font-size: 14px;
+	font-style:italic;
+	line-height: 20px;
+	color:#3e3e3e;
+	font-weight: 400;
+}
+
+
+h4 {
+	margin:0;
+	padding:20px 0 25px 0;
+	text-transform:uppercase;
+	font-family: 'Droid Sans', sans-serif;
+	font-weight:400;
+	font-size:14px;
+	font-style:normal;
+	line-height:50px;
+	color:#343434;
+}
+
+h5 {
+	margin:0;
+	padding:15px 0 25px 0;
+	text-transform:uppercase;
+	font-family: 'Droid Sans', sans-serif;
+	font-weight:400;
+	font-size:14px;
+	font-style:normal;
+	line-height:50px;
+	color:#a6a6a6;
+}
+
+img.icon_img {
+	float:left;
+	margin-right:20px;
+	margin-top:20px;
+	margin-bottom:25px;
+}
+
+.effect_2 {
+	background:url(../images/effect_2.png) repeat left top;
+	position:relative;
+	z-index:999 !important;
+}
+
+/* ____________________________________ Slide 1 ____________________________________ */ 
+
+.form_bg {
+	background:url(../images/slide8_bg.png) no-repeat left top;
+	padding:96px 0 77px;
+}
+.padding_slide1 {padding:260px 0 50px 0;
+}
+
+#slide1{
+	background-image:url(../images/slide1_bg.jpg);
+	background-size: cover !important;
+	width:100%;
+	background-position:0 0 !important;
+	text-align:left;
+}
+.filtr_bg {
+	margin-bottom:90px;
+}
+#slide1 h1 {
+	margin:0;
+	padding:0;
+	text-transform:uppercase;
+	font-family: 'Anton', sans-serif;
+	font-size: 76px;
+	line-height: 86px;
+	color:#fff;
+	font-weight: 400;
+	text-align:left;
+	opacity:0.74;
+	filter: alpha(opacity=74);
+	text-shadow:3px 3px 5px rgba(0,0,0,0.75);
+}
+#slide1 h2 {
+	text-transform:uppercase;
+	border:none;
+	background:none;
+	font-family: 'Anton', sans-serif;
+	font-size: 44px;
+	font-style:normal;
+	color: #fff;
+	line-height: 86px;
+	padding:0;
+	margin:0;
+	font-weight: 400;
+	opacity:0.74;
+	filter: alpha(opacity=74);
+	text-shadow:3px 3px 5px rgba(0,0,0,0.75);
+}
+
+#slide1 a.button {
+    background-image: url(../images/arrow_down.png);
+    display: block;
+    height: 25px;
+	margin:0 auto;
+    width: 25px;
+}
+a.button:hover {cursor:pointer;text-decoration:none;
+}
+
+
+
+/* ____________________________________ Slide 2 ____________________________________ */ 
+
+#slide2{
+	background-image:url(../images/slide2_bg.jpg);
+	background-size: cover !important;
+	width:100%;
+	background-position:0 0 !important;
+	text-align:center;
+}
+.padding_slide2 {
+	padding:139px 0 130px;
+}
+
+
+
+/* ____________________________________ Slide 3 ____________________________________ */ 
+
+#slide3{
+	background:#fff;
+	padding:100px 0 59px 0;
+}
+#slide3 .container {overflow:hidden;
+}
+#slide3 h4 {
+	padding-bottom:15px;
+}
+
+/* ________________ team_block _________________ */
+.team_block {
+	text-align:center;
+	border-bottom:2px solid #c3c3c3;
+	background:#f5f5f5;
+}
+.team_block h4 {
+	margin:14px 0 9px;
+	padding:0;
+	text-transform:uppercase;
+	font-family: 'Droid Sans', sans-serif;
+	font-weight:400;
+	font-size:20px;
+	line-height:26px;
+	color:#555;
+}
+.team_block p {
+	margin:0 20px 10px 20px;
+	padding:0 0 15px 0;
+	text-transform:uppercase;
+	border-bottom:1px solid #d9d9d9;
+	font-size:14px;
+	color:#939393;
+}
+ul.team_soc {
+	margin:10px 0 12px 0;
+	padding:0;
+}
+.team_soc li {display:inline-block;}
+.team_soc li a {
+	display:inline-block;
+	margin:0 9px;
+	width:28px;
+	height:28px;
+}
+a.soc1 {
+	background:url(../images/team_soc_icons.png) no-repeat 0 0 #afafaf;
+}
+a.soc2 {
+	background:url(../images/team_soc_icons.png) no-repeat -30px 0 #afafaf;
+}
+a.soc3 {
+	background:url(../images/team_soc_icons.png) no-repeat -62px 0 #afafaf;
+}
+a.soc4 {
+	background:url(../images/team_soc_icons.png) no-repeat -89px 0 #afafaf;
+}
+
+a.soc1:hover {
+	background:url(../images/team_soc_icons.png) no-repeat 0 0 #00aeff;
+}
+a.soc2:hover {
+	background:url(../images/team_soc_icons.png) no-repeat -30px 0 #00aeff;
+}
+a.soc3:hover {
+	background:url(../images/team_soc_icons.png) no-repeat -62px 0 #00aeff;
+}
+a.soc4:hover {
+	background:url(../images/team_soc_icons.png) no-repeat -89px 0 #00aeff;
+}
+
+.team_block:hover h4 {
+	color:#00aeff;
+}
+
+/* _______________ //team_block ________________ */
+
+/* ___________________________________ //Slide 3 ___________________________________ */ 
+
+
+
+/* ____________________________________ Slide 4 ____________________________________ */
+
+#slide4{
+	background-image:url(../images/slide4_bg.jpg);
+	background-size: cover !important;
+	width:100%;
+	background-position:0 0 !important;
+	text-align:center;
+}
+.padding_slide4 {
+	padding:139px 0 130px;
+}
+#slide4 h1,
+#slide4 h2 {color:#fff;
+}
+
+
+
+/* ____________________________________ Slide 5 ____________________________________ */ 
+#slide5{
+	background:#fff;
+	padding:100px 0 74px;
+}
+
+/* _____________________________ Tours _____________________________________ */
+a.tours_block:hover {
+	text-decoration:none;
+}
+a.tours_block:hover span {
+	color:#00aeff;
+}
+.hover_img {
+	max-height:217px;
+}
+.recent_text {
+	padding:0 10px;
+	background:#f5f5f5;
+	border-bottom:2px solid #c3c3c3;
+}
+
+.recent_text span {
+	display:block;
+	padding:16px 0 13px;
+	border-bottom:1px solid #d9d9d9;
+	font-family: 'Droid Sans', sans-serif;
+	font-weight:400;
+	font-size:18px;
+	line-height:20px;
+	color:#555;
+}
+
+.recent_text p {
+	font-size: 14px;
+	line-height: 20px;
+	color: #717171;
+}
+p.hot_town {
+	float:left;
+	margin:13px 0 0 0;
+	padding: 0 0 10px 20px;
+	background:url(../images/hot_town_bg.png) no-repeat;
+}
+p.hot_date {
+	float:right;
+	margin:13px 0 0 0;
+	padding:0;
+}
+
+/* ____________________________ //Tours ____________________________________ */
+
+
+/* ___________________________________ //Slide 5 ___________________________________ */ 
+
+/* ____________________________________ Slide 6 ____________________________________ */
+
+.padding_slide6 {
+	padding:73px 0 0 0;
+}
+
+#slide6 .effect_2 {
+	position:absolute;
+	left:0;
+	top:73px;
+	right:0;
+	width:100%;
+	height:722px;
+}
+#slide6 .grid_12 {margin-bottom:0 !important;
+}
+#slide6 .bord_top {
+	width:100%;
+	height:73px;
+	margin-top:-73px;
+	background:#fff;
+}
+
+
+
+
+/* ____________________________________ //Slide 6 ____________________________________ */
+
+
+
+
+
+/* ____________________________________ Slide 8 ____________________________________ */
+
+#slide8{
+	background-color:#f1f1f1;
+	width:100%;
+	margin-top:70px;
+}
+#slide8 .grid_12 {width:auto;float:none;}
+.padding_slide8 {position:relative;
+}
+#slide8 h4 {border-bottom:1px solid #cacaca;
+}
+a.hol_offers {
+	float:right;
+	color:#00aeff;
+	padding-top:28px;
+	text-decoration:underline;
+}
+
+/* ____________________ order_block ___________________ */
+.travel_form {
+	margin:0;
+	padding:24px 0 0 0;
+	border-top:1px solid #fff;
+}
+
+.order_block label,
+.order_block input,
+.order_block form {
+	display:inline-block;
+}
+.order_block input {
+	border:none;
+	font-size:14px;
+	line-height:39px;
+	padding:0 14px;
+}	
+.order_block label {
+	vertical-align:top;
+	margin:0 22px 0 0;
+	font-family: 'Droid Sans', sans-serif;
+	font-weight:400;
+	font-size:16px;
+	line-height:39px;
+	color:#fff;
+}
+.order_block input {
+	height:39px;
+	font-family: 'Arial', sans-serif;
+	font-weight:400;
+	font-size:14px;
+	line-height:20px;
+	color:#b7b7b7;
+	font-style:italic;
+}
+.order_block .form_btn {
+	width:233px;
+	height:42px;
+	background:url(../images/form_btn_bg.png) no-repeat;
+	margin:0;
+	padding:0 0 0 22px;
+	text-align:left;
+	text-transform:uppercase;
+	font-family: 'Droid Sans', sans-serif;
+	font-weight:400;
+	font-size:14px;
+	line-height:39px;
+	color:#fff;
+	font-style:normal;
+}
+
+img.calendar_link {
+	margin-left:-20px;
+}
+.order_block .email_form,
+#datepicker,
+#datepicker2 {
+	background:url(../images/calendar.png) no-repeat right top #fff;
+	width:204px;
+	margin-bottom:19px;
+	border-top:1px solid #d6d6d6;
+	border-left:1px solid #d6d6d6;
+	border-right:none;
+	border-bottom:1px solid #e7e7e7;
+}
+#datepicker {
+	margin-right:20px;
+	margin-bottom:19px;
+}
+.order_block .email_form {
+	margin-right:20px;
+	margin-bottom:19px;
+	background:#fff;
+}
+
+/* ________________ RADIO _________________ */
+.radio_block p {
+	display:inline-block;
+	width:140px;
+	margin-right:20px;
+	line-height:24px;
+}
+
+.radio {
+	width: 19px;
+	height: 25px;
+	padding: 0 5px 0 0;
+	background: url(../images/radio.png) no-repeat;
+	display: block;
+	clear: left;
+	float: left;
+}
+
+/* _______________ //RADIO ________________ */
+
+/* ___________________ //order_block __________________ */
+
+/* ____________________________________ //Slide 8 ____________________________________ */
+
+
+
+
+/* ____________________________________ Slide 10 ____________________________________ */
+
+#slide10{
+	background:#fff;
+	padding:85px 0 0 0;
+}
+
+
+
+/* ______________ CONTACT_FORM ______________ */
+.contact_form input[type="text"],
+.contact_form textarea {
+	width:289px;
+	margin:0 0 6px 0;
+	padding:11px 10px 9px 19px;
+	background: #fafafa;
+	font-family:Arial;
+	font-weight:400;
+	border-top:1px solid #d2d2d2;
+	border-right:none;
+	border-bottom:1px solid #f0f0f0;
+	border-left:1px solid #d2d2d2;
+	color:#a1a1a1;
+}
+.contact_form input[type="text"]:first-child {margin-left:0 !important;}
+.contact_form textarea {
+	resize: none;
+	margin-left:0;
+	width:289px;
+	height: auto;
+    min-height: 55px;
+}
+
+.contact_btn {
+	position:relative;
+	display: inline-block;
+	border:1px solid #343434;
+	text-transform:uppercase;
+	margin:8px 6px 0 0;
+	padding:7px 19px 5px;
+	font-size: 16px;
+	line-height: 20px;
+	color: #fff;
+	font-family: 'Droid Sans', sans-serif;
+	font-weight:400;
+	text-align: center;
+	vertical-align: middle;
+	background:url(../images/contact_btn_bg.jpg) repeat-x left top;
+}
+
+.contact_btn:hover,
+.send_btn {
+	background:#00aeff;
+	border:1px solid #009ce5;
+	background:url(../images/contact_btn_bg_h.jpg) repeat-x left top;
+}
+
+#note .notification_ok {
+	margin-top:20px;
+	padding:7px 10px;
+	text-align:center;
+	text-transform:uppercase;
+	background:#3e3e3e;
+	font-family: 'Droid Sans', sans-serif;
+	font-weight:400;
+	font-size:16px;
+	color:#fff;
+}
+#note .notification_error {
+	font-family: 'Droid Sans', sans-serif;
+	font-weight:400;
+	font-size:16px;
+	color:#f00;
+}
+/* _____________ //CONTACT_FORM _____________ */
+
+/* ____________ CONTACT_DETAILS _____________ */
+.contact_det_block {margin-top:-5px;
+}
+
+ul.foot_block_intouch {
+	margin:0;
+	padding:0;
+}
+
+.foot_block_intouch li {padding-bottom:8px !important;}
+.foot_block_intouch li p, .foot_block_intouch a {
+	color:#717171;
+	line-height:21px;
+	font-size:14px;
+	padding:0 0 0 34px;
+	margin:0;
+}
+.foot_block_intouch li a:hover {color:#00aeff;text-decoration:none;}
+
+.foot_block_intouch li.touch_phone p {
+	background:url(../images/contact_icon.png) no-repeat 0 0;
+}
+.foot_block_intouch li.touch_clock p {
+	background:url(../images/contact_icon.png) no-repeat 0 -78px;
+}
+.foot_block_intouch li.touch_mail a {
+	background:url(../images/contact_icon.png) no-repeat 0 -160px;
+}
+.foot_block_intouch li.touch_site a {
+	background:url(../images/contact_icon.png) no-repeat 0 -244px;
+	display:block;
+	height:20px;
+}
+.foot_block_intouch li.touch_adress p {
+	background:url(../images/contact_icon.png) no-repeat 0 -325px;
+}
+.foot_block_intouch li.facebook a {
+	background:url(../images/contact_icon.png) no-repeat 0 -413px;
+	display:block;
+	height:15 px;
+}
+.foot_block_intouch li.twitter a {
+	background:url(../images/contact_icon.png) no-repeat 0 -496px;
+	display:block;
+	height:15px;
+}
+
+
+
+/* ___________ //CONTACT_DETAILS ____________ */
+#map_block {
+	margin:0 0 0 0;
+}
+
+/* ___________________________________ //Slide 10 ___________________________________ */ 
+
+
+/* ____________________________________ FOOTER ____________________________________ */
+#footer {
+	background:#343434;
+	padding:27px 0 23px;
+}
+.copyright {
+	float:left;
+	text-transform:none;
+	font-family: 'Droid Sans', sans-serif;
+	font-weight:400;
+	color:#979797;
+}
+.copyright a {
+	color:#fff;
+}
+.copyright a:hover {text-decoration:none;color:#00aeff;
+}
+
+/* _____________ BACK_TOP ___________ */
+#back_top {
+	float:right;
+}
+#back_top a.button {
+	display:block;
+	text-transform:none;
+	padding-right:28px;
+	background:url(../images/back_top_bg.png) no-repeat top right;
+	font-family: 'Droid Sans', sans-serif;
+	font-weight:400;
+	height:27px;
+	color:#979797;
+}
+#back_top a.button:hover {text-decoration:none;}
+/* ____________ //BACK_TOP __________ */
+
+/* ___________________________________ //FOOTER ___________________________________ */
+
+
+
+
+
+
+
+
+
+
+
