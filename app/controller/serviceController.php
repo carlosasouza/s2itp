@@ -17,20 +17,24 @@ class ServiceController {
         
         return "Foi!";
     }
-   //em desenvolvimento 
-    static function getData() {
-        
+    
+    
+    function getBusInfo() {
+  
         $pdo = Connection::getConnection();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+  
         
-        $stmt = $pdo->prepare("SELECT `latitude`,`longitude` FROM `bus` WHERE `idBus` = 1");
-        //$stmt->bindParam(1, $latitude, PDO::PARAM_STR);
-        //$stmt->bindParam(2, $longitude, PDO::PARAM_STR);
-        //$stmt->bindParam(3, $busId, PDO::PARAM_STR);
-        $result = $stmt->execute();
         
-        return $result;
-    }
+        $sql = "SELECT `idBus`, `latitude`,`longitude` FROM `bus` WHERE `idBus` = 1";
+        foreach ($pdo->query($sql) as $row) {
+        print "idBus:". $row['idBus'] . "\t";
+        print "latitude:".$row['latitude'] . "\t";
+        print "longitude:".$row['longitude'] . "\n";
+        
+        }
+        
+        }
 }
 
 ?>
