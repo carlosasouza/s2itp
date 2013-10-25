@@ -57,7 +57,11 @@
               });
         map.addMarker({
         lat: <?php echo $latitude;?>,
-                lng: <?php echo $longitude;?>
+        lng: <?php echo $longitude;?>,
+        title: 'Brasília',
+        infoWindow: {
+          content: '<p>HTML Content</p>'
+        }
       });
               
             });
