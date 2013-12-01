@@ -35,7 +35,10 @@ a:visited {
 	margin-left: 20px;
 }
 
-
+.espaco {
+	margin-bottom: 10px;
+	
+}
 /* Navigation */
 
 .menu {
@@ -427,7 +430,7 @@ p.hot_date {
 #slide8{
 	background-color:#f1f1f1;
 	width:100%;
-	margin-top:70px;
+	margin-top:55px;
 }
 #slide8 .grid_12 {width:auto;float:none;}
 .padding_slide8 {position:relative;

@@ -27,6 +27,8 @@ $infoPointers = $serviceController->getPointers();
         <link rel="stylesheet" href="css/normalize.css" type="text/css" media="screen">
         <link rel="stylesheet" id="camera-css"  href="css/flexslider.css" type="text/css" media="all">
         <link rel="stylesheet" href="css/grid.css" type="text/css" media="screen">
+        <link rel="stylesheet" href="css/bootstrap-redu.css" type="text/css" media="screen">
+        
 
         <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
@@ -41,7 +43,7 @@ $infoPointers = $serviceController->getPointers();
         <script type="text/javascript" src="js/js.js"></script>
         <script type="text/javascript" src="js/jquery.stellar.min.js"></script>
         <script type="text/javascript" src="js/waypoints.min.js"></script>
-
+        <script type="text/javascript" src="js/vendor/bootstrap-redu.js"></script>
 
         <!--GMAPS-->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
@@ -142,7 +144,7 @@ $infoPointers = $serviceController->getPointers();
                     </div>
                     <div class="order_block left">
                         <form method="post" action="">
-                            <select>
+                            <select class="espaco">
                                 <option>...:::Selecione a cidade:::...</option>;
                                 <?php
                                 
@@ -154,7 +156,7 @@ $infoPointers = $serviceController->getPointers();
                                 
                             </select>
                             
-                            <select>
+                            <select class="espaco">
                                 <option>...:::Selecione a linha:::...</option>;
                                 <?php
                                 
@@ -166,7 +168,7 @@ $infoPointers = $serviceController->getPointers();
                                 
                             </select>
                            
-                             <select>
+                             <select class="espaco">
                                 <option>...:::Selecione a parada:::...</option>;
                                 <?php
                                 
