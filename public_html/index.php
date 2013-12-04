@@ -1,10 +1,19 @@
 ﻿<?php
+
+include('conexao.php');
+$sql = "SELECT * FROM city ORDER BY city_name";
+$res = mysql_query($sql, $conexao);
+$num = mysql_num_rows($res);
+for ($i = 0; $i < $num; $i++) {
+  $dados = mysql_fetch_array($res);
+  $arrEstados[$dados['idCity']] = $dados['city_name'];
+}
+
 include_once '../app/controller/serviceController.php';
 $serviceController = new ServiceController();
 $infoBus = $serviceController->getBusInfo(1);
-echo $infoBus[0]['idBus'];
-$latitude = $infoBus[0]['latitude'];
-$longitude = $infoBus[0]['longitude'];
+@$latitude = $infoBus[0]['latitude'];
+@$longitude = $infoBus[0]['longitude'];
 /* echo '<pre>';
   print_r($infoBus);
   echo '</pre>';
@@ -12,7 +21,6 @@ $longitude = $infoBus[0]['longitude'];
 $infoCidades = $serviceController->getCities();
 $infoLines = $serviceController->getLines();
 $infoPointers = $serviceController->getPointers();
-
 ?>
 
 
@@ -28,7 +36,7 @@ $infoPointers = $serviceController->getPointers();
         <link rel="stylesheet" id="camera-css"  href="css/flexslider.css" type="text/css" media="all">
         <link rel="stylesheet" href="css/grid.css" type="text/css" media="screen">
         <link rel="stylesheet" href="css/bootstrap-redu.css" type="text/css" media="screen">
-        
+
 
         <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
@@ -49,7 +57,6 @@ $infoPointers = $serviceController->getPointers();
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
         <script type="text/javascript" src="../gmaps.js"></script>
-        <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="css/examples.css" />
 
         <script type="text/javascript">
@@ -70,9 +77,7 @@ $infoPointers = $serviceController->getPointers();
                 });
 
             });
-
-
-
+            
         </script>
 
 
@@ -104,6 +109,17 @@ $infoPointers = $serviceController->getPointers();
                 });
 
             });
+            
+            function buscar_linha() {
+                var cidade = $('#cidade').val();
+                if (cidade) {
+                    var url = 'ajax_buscar_linha.php?cidade=' + cidade;
+                    $.get(url, function(dataReturn) {
+                        $('#load_linhas').html(dataReturn);
+                    });
+                }
+            }
+            
         </script>
 
         <script type="text/javascript">/*$($.date_input.initialize);*/</script>
@@ -144,51 +160,23 @@ $infoPointers = $serviceController->getPointers();
                     </div>
                     <div class="order_block left">
                         <form method="post" action="">
-                            <select class="espaco">
-                                <option>...:::Selecione a cidade:::...</option>;
-                                <?php
-                                
-                                foreach ($infoCidades as $info) {
-      
-                                  echo '<option>'. utf8_encode($info['city_name']).'</option>';
-                                }
-                                ?>
-                                
-                            </select>
+                        
+                            <div>
+      <label>Cidade:</label>
+      <select name="cidade" id="cidade" onchange="buscar_linha()">
+        <option value="">...:::Selecione:::...</option>
+        <?php foreach ($arrEstados as $value => $name) {
+          echo "<option value='{$value}'>{$name}</option>";
+        }?>
+      </select>
+      </div>
+      <div id="load_linhas">
+        <label>Linhas:</label>
+        <select name="linha" id="linha">
+          <option value="">...:::Selecione a linha:::...</option>
+        </select>
+      </div>
                             
-                            <select class="espaco">
-                                <option>...:::Selecione a linha:::...</option>;
-                                <?php
-                                
-                                foreach ($infoLines as $info) {
-      
-                                  echo '<option>'. utf8_encode($info['description']).'</option>';
-                                }
-                                ?>
-                                
-                            </select>
-                           
-                             <select class="espaco">
-                                <option>...:::Selecione a parada:::...</option>;
-                                <?php
-                                
-                                foreach ($infoPointers as $info) {
-      
-                                  echo '<option>'. utf8_encode($info['description']).'</option>';
-                                }
-                                ?>
-                                
-                            </select>
-                            <!--input class="email_form" type="text" name="text" value="Cidade" onfocus="if (this.value == 'Cidade')
-                                        this.value = '';" onblur="if (this.value == '')
-                                                    this.value = 'Cidade';" />
-                            <input class="email_form" type="text" name="text" value="Terminal" onfocus="if (this.value == 'Terminal')
-                                        this.value = '';" onblur="if (this.value == '')
-                                                    this.value = 'Terminal';" />
-                            <input class="email_form" type="text" name="text" value="Linha" onfocus="if (this.value == 'Linha')
-                                        this.value = '';" onblur="if (this.value == '')
-                                                    this.value = 'Linha';" />
-                            <input type="submit" class="form_btn" value="Pesquisar" /-->
                         </form>
                     </div>
                 </div>
