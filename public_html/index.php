@@ -11,9 +11,14 @@ for ($i = 0; $i < $num; $i++) {
 
 include_once '../app/controller/serviceController.php';
 $serviceController = new ServiceController();
+//onibus
 $infoBus = $serviceController->getBusInfo(1);
-@$latitude = $infoBus[0]['latitude'];
-@$longitude = $infoBus[0]['longitude'];
+@$latitudeBus = $infoBus[0]['latitude'];
+@$longitudeBus = $infoBus[0]['longitude'];
+//parada
+$infoPointer = $serviceController->getPointers(1);
+@$latitudePointer = $infoPointer[0]['latitude'];
+@$longitudePointer = $infoPointer[0]['longitude'];
 /* echo '<pre>';
   print_r($infoBus);
   echo '</pre>';
@@ -59,7 +64,7 @@ $infoPointers = $serviceController->getPointers();
         <script type="text/javascript" src="../gmaps.js"></script>
         <link rel="stylesheet" type="text/css" href="css/examples.css" />
 
-        <script type="text/javascript">
+        <!--script type="text/javascript">
             var map;
             $(document).ready(function() {
                 var map = new GMaps({
@@ -78,7 +83,100 @@ $infoPointers = $serviceController->getPointers();
 
             });
             
-        </script>
+        </script!-->
+        
+<script>
+var map;
+var geocoder;
+var bounds = new google.maps.LatLngBounds();
+var markersArray = [];
+
+var origin1 = new google.maps.LatLng(<?php echo $latitudeBus; ?>, <?php echo $longitudeBus; ?>);
+var destinationA = new google.maps.LatLng(<?php echo $latitudePointer; ?>, <?php echo $longitudePointer; ?>);
+
+
+var destinationIcon = 'http://www.clker.com/cliparts/5/3/f/1/123756068293974412milovanderlinden_Funny_Bus_stop.svg';
+var originIcon = 'http://www.umb.edu/editor_uploads/maps-icons/Transit_Bus_icon.png';
+
+function initialize() {
+  var opts = {
+    center: new google.maps.LatLng(-15.792254, -47.919831),
+    zoom: 10
+  };
+  map = new google.maps.Map(document.getElementById('map'), opts);
+  geocoder = new google.maps.Geocoder();
+}
+
+function calculateDistances() {
+  var service = new google.maps.DistanceMatrixService();
+  service.getDistanceMatrix(
+    {
+      origins: [origin1],
+      destinations: [destinationA],
+      travelMode: google.maps.TravelMode.DRIVING,
+      unitSystem: google.maps.UnitSystem.METRIC,
+      avoidHighways: false,
+      avoidTolls: false
+    }, callback);
+}
+
+function callback(response, status) {
+  if (status != google.maps.DistanceMatrixStatus.OK) {
+    alert('Error was: ' + status);
+  } else {
+    var origins = response.originAddresses;
+    var destinations = response.destinationAddresses;
+    var outputDiv = document.getElementById('outputDiv');
+    outputDiv.innerHTML = '';
+    deleteOverlays();
+
+    for (var i = 0; i < origins.length; i++) {
+      var results = response.rows[i].elements;
+      addMarker(origins[i], false);
+      for (var j = 0; j < results.length; j++) {
+        addMarker(destinations[j], true);
+        outputDiv.innerHTML += origins[i] + ' to ' + destinations[j]
+            + ': ' + results[j].distance.text + ' in '
+            + results[j].duration.text + '<br>';
+      }
+    }
+  }
+}
+
+function addMarker(location, isDestination) {
+  var icon;
+  if (isDestination) {
+    icon = destinationIcon;
+  } else {
+    icon = originIcon;
+  }
+  geocoder.geocode({'address': location}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+      bounds.extend(results[0].geometry.location);
+      map.fitBounds(bounds);
+      var marker = new google.maps.Marker({
+        map: map,
+        position: results[0].geometry.location,
+        icon: icon
+      });
+      markersArray.push(marker);
+    } else {
+      alert('Geocode was not successful for the following reason: '
+        + status);
+    }
+  });
+}
+
+function deleteOverlays() {
+  for (var i = 0; i < markersArray.length; i++) {
+    markersArray[i].setMap(null);
+  }
+  markersArray = [];
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
 
 
         <!--[if lt IE 9]>
@@ -178,6 +276,11 @@ $infoPointers = $serviceController->getPointers();
       </div>
                             
                         </form>
+                        
+                        <p><button type="button" onclick="calculateDistances();">Calculate
+          distances</button></p>
+          
+           <div id="outputDiv"></div>
                     </div>
                 </div>
 

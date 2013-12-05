@@ -11,4 +11,5 @@ $serviceController = new ServiceController();
 //echo $process = $serviceController->saveData($latitude, $longitude, $busId);
 
 echo $process = $serviceController->getBusInfo();
+echo $process = $serviceController->getPointers();
 ?>
