@@ -15,10 +15,12 @@ $serviceController = new ServiceController();
 $infoBus = $serviceController->getBusInfo(1);
 @$latitudeBus = $infoBus[0]['latitude'];
 @$longitudeBus = $infoBus[0]['longitude'];
+@$descBus = $infoBus[0]['Line_idLine'];
 //parada
 $infoPointer = $serviceController->getPointers(1);
 @$latitudePointer = $infoPointer[0]['latitude'];
 @$longitudePointer = $infoPointer[0]['longitude'];
+@$descPointer = $infoPointer[0]['description'];
 /* echo '<pre>';
   print_r($infoBus);
   echo '</pre>';
@@ -91,6 +93,14 @@ var geocoder;
 var bounds = new google.maps.LatLngBounds();
 var markersArray = [];
 
+var directionsService;
+var directionsRenderer;
+
+directionsService = new google.maps.DirectionsService();
+
+directionsRenderer = new google.maps.DirectionsRenderer();
+//directionsRenderer.setMap(map);
+
 var origin1 = new google.maps.LatLng(<?php echo $latitudeBus; ?>, <?php echo $longitudeBus; ?>);
 var destinationA = new google.maps.LatLng(<?php echo $latitudePointer; ?>, <?php echo $longitudePointer; ?>);
 
@@ -118,6 +128,11 @@ function calculateDistances() {
       avoidHighways: false,
       avoidTolls: false
     }, callback);
+    directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+    directionsRenderer.setDirections(response);
+    }
+    });
 }
 
 function callback(response, status) {
@@ -145,10 +160,13 @@ function callback(response, status) {
 
 function addMarker(location, isDestination) {
   var icon;
+  var desc;
   if (isDestination) {
     icon = destinationIcon;
+    desc = '<?php echo $descPointer; ?>';
   } else {
     icon = originIcon;
+    desc = '<?php echo $descBus; ?>';
   }
   geocoder.geocode({'address': location}, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
@@ -157,14 +175,16 @@ function addMarker(location, isDestination) {
       var marker = new google.maps.Marker({
         map: map,
         position: results[0].geometry.location,
-        icon: icon
+        icon: icon,
+        title: desc
       });
       markersArray.push(marker);
     } else {
       alert('Geocode was not successful for the following reason: '
         + status);
     }
-  });
+  });  
+  
 }
 
 function deleteOverlays() {
