@@ -1,0 +1,119 @@
+﻿label,
+input,
+button,
+select,
+textarea {
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+select,
+textarea,
+input[type="text"],
+input[type="password"] {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: inset 0 1px 0 white;
+  -moz-box-shadow: inset 0 1px 0 white;
+  box-shadow: inset 0 1px 0 white;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  display: inline-block;
+  border: 1px solid #cccccc;
+  padding: 6px 10px;
+  width: 100%;
+  color: #6d6e6f;
+  font-size: 13px;
+  line-height: 18px;
+  height: 32px;
+}
+.csstransitions select, .csstransitions
+textarea, .csstransitions
+input[type="text"], .csstransitions
+input[type="password"] {
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+.cssgradients select, .cssgradients
+textarea, .cssgradients
+input[type="text"], .cssgradients
+input[type="password"] {
+  background-image: -webkit-linear-gradient(bottom, #ffffff 60.0%, #e6e6e6);
+  background-image: -moz-linear-gradient(bottom, #ffffff 60.0%, #e6e6e6);
+  background-image: -o-linear-gradient(bottom, #ffffff 60.0%, #e6e6e6);
+  background-image: linear-gradient(to top, #ffffff 60.0%, #e6e6e6);
+}
+.no-cssgradients.gt-ie8 select, .no-cssgradients.gt-ie8
+textarea, .no-cssgradients.gt-ie8
+input[type="text"], .no-cssgradients.gt-ie8
+input[type="password"] {
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2U2ZTZlNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+}
+.control-success select, .control-success
+textarea, .control-success
+input[type="text"], .control-success
+input[type="password"] {
+  border-color: #abe385;
+}
+.control-error select, .control-error
+textarea, .control-error
+input[type="text"], .control-error
+input[type="password"] {
+  border-color: #ff6d6d;
+}
+select:hover,
+textarea:hover,
+input[type="text"]:hover,
+input[type="password"]:hover {
+  border-color: #73c3e6;
+}
+.control-success select:hover, .control-success
+textarea:hover, .control-success
+input[type="text"]:hover, .control-success
+input[type="password"]:hover {
+  border-color: #5fc080;
+}
+.control-error select:hover, .control-error
+textarea:hover, .control-error
+input[type="text"]:hover, .control-error
+input[type="password"]:hover {
+  border-color: #e1272d;
+}
+select:focus,
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+  color: black;
+  background-color: white !important;
+  background-image: none !important;
+  border-color: #73c3e6;
+  outline: 0;
+  -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 0 6px 1px #73c3e6;
+  -moz-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 0 6px 1px #73c3e6;
+  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 0 6px 1px #73c3e6;
+}
+.control-success select:focus, .control-success
+textarea:focus, .control-success
+input[type="text"]:focus, .control-success
+input[type="password"]:focus {
+  -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 0 6px 1px #abe385;
+  -moz-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 0 6px 1px #abe385;
+  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 0 6px 1px #abe385;
+  border-color: #abe385;
+}
+.control-error select:focus, .control-error
+textarea:focus, .control-error
+input[type="text"]:focus, .control-error
+input[type="password"]:focus {
+  -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 0 6px 1px #ff6d6d;
+  -moz-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 0 6px 1px #ff6d6d;
+  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0), 0 0 6px 1px #ff6d6d;
+  border-color: #ff6d6d;
+}
