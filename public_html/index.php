@@ -303,7 +303,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 					</li>
 					<!-- start: User Dropdown -->
 					<li class="dropdown">
-						<a class="btn account dropdown-toggle" data-toggle="dropdown" href="index.html#">
+						<a class="btn account dropdown-toggle" data-toggle="dropdown" href="informativo.html">
 							<div class="avatar"><img src="assets/img/avatar.jpg" alt="Avatar"></div>
 							<div class="user">
 								<span class="hello">Bem Vindo</span>
@@ -361,7 +361,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
                             
                         </form>
                         
-                        <p><button type="button" onclick="calculateDistances();">Calculate
+                        <p><button class="btn space-top" type="button" onclick="calculateDistances();">Calculate
           distances</button></p>
           
            <div id="outputDiv"></div>
