@@ -355,7 +355,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
       <div id="load_linhas">
         <label>Linhas:</label>
         <select name="linha" id="linha">
-          <option value="">...:::Selecione a linha:::...</option>
+          <option value="">...::Selecione a linha:::...</option>
         </select>
       </div>
                             
