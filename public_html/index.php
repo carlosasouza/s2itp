@@ -34,38 +34,32 @@ $infoPointers = $serviceController->getPointers();
 <!DOCTYPE HTML>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale = 1.0, user-scalable = no">
-        <title>S2ITP - Sistema de Informação Interativa de Transporte</title>
-        <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
-        <link rel="stylesheet" href="css/jquery-ui-1.10.1.custom.css" type="text/css" media="screen">
-        <link rel="stylesheet" href="css/normalize.css" type="text/css" media="screen">
-        <link rel="stylesheet" id="camera-css"  href="css/flexslider.css" type="text/css" media="all">
-        <link rel="stylesheet" href="css/grid.css" type="text/css" media="screen">
-        <link rel="stylesheet" href="css/bootstrap-redu.css" type="text/css" media="screen">
-
-
-        <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
-
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
-        <script src="js/jquery-ui-1.10.1.custom.min.js"></script>
-        <script type="text/javascript" src="js/slider/jquery.flexslider-min.js"></script>
-        <script src="js/slider/functions.js" type="text/javascript"></script>
-        <script src="js/slider/script.js" type="text/javascript"></script>
-        <script type="text/javascript" src="js/radio.js"></script>
-        <script type="text/javascript" src="js/js.js"></script>
-        <script type="text/javascript" src="js/jquery.stellar.min.js"></script>
-        <script type="text/javascript" src="js/waypoints.min.js"></script>
-        <script type="text/javascript" src="js/vendor/bootstrap-redu.js"></script>
-
-        <!--GMAPS-->
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-        <script type="text/javascript" src="../gmaps.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/examples.css" />
-
+        <!-- start: Meta -->
+	<meta charset="utf-8">
+	<title>S2itp</title>
+	<meta name="description" content="S2ITP.">
+	<meta name="author" content="Mobilidade Urbana DF">
+	<meta name="keyword" content="Mobilidade urbana">
+	<!-- end: Meta -->
+	
+	<!-- start: Mobile Specific -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- end: Mobile Specific -->
+	
+	<!-- start: CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/retina.min.css" rel="stylesheet">
+	<link href="assets/css/customise.css" rel="stylesheet">
+	
+	<!-- end: CSS -->
+	
+	<!--GMAPS-->
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+		<script type="text/javascript" src="../gmaps.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/examples.css" /> <!--esse causa aquele problema do topo descer -->
+	
         <!--script type="text/javascript">
             var map;
             $(document).ready(function() {
@@ -246,38 +240,108 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
     <body>
 
-        <div class="menu">	
-            <div class="clearfix">
+        <!-- start: Header -->
+	<header class="navbar">
+		<div class="container">
+			<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".sidebar-nav.nav-collapse">
+			      <span class="icon-bar"></span>
+			      <span class="icon-bar"></span>
+			      <span class="icon-bar"></span>
+			</button>
+			<a id="main-menu-toggle" class="hidden-xs open"><i class="icon-reorder"></i></a>		
+				<a class="navbar-brand col-lg-4 col-sm-3 col-xs-12" href="index.html"><span>S2ITP</span></a>
+			<!-- start: Header Menu -->
+			<div class="nav-no-collapse header-nav">
+				<ul class="nav navbar-nav pull-right">
+					<li class="dropdown hidden-xs">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="index.html#">
+							<i class="icon-warning-sign"></i>
+						</a>
+						<ul class="dropdown-menu notifications">
+							<li class="dropdown-menu-title">
+								<span>Notificações</span>
+							</li>	
+                        	<li>
+                                <a href="index.html#">
+									<span class="icon blue"><i class="icon-comment-alt"></i></span>
+									<span class="message">Linha 205 - Gama/Taguatinga</span>
+									<span class="time">1 min</span> 
+                                </a>
+                            </li>
+							<li>
+                                <a href="index.html#">
+									<span class="icon green"><i class="icon-comment-alt"></i></span>
+									<span class="message">Linha 205.1 - Gama/Taguatinga</span>
+									<span class="time">7 min</span> 
+                                </a>
+                            </li>
+							<li>
+                                <a href="index.html#">
+									<span class="icon green"><i class="icon-comment-alt"></i></span>
+									<span class="message">Linha 200.1 - Gama/Plano Piloto</span>
+									<span class="time">8 min</span> 
+                                </a>
+                            </li>
+							<li>
+                                <a href="index.html#">
+									<span class="icon green"><i class="icon-comment-alt"></i></span>
+									<span class="message">Linha 217.2 - Gama/Asa Norte</span>
+									<span class="time">16 min</span> 
+                                </a>
+                            </li>
+							
+                            <li class="dropdown-menu-sub-footer">
+                        		<a>Ver todas as notificações</a>
+							</li>	
+						</ul>
+					</li>
+					
+					<li>
+						<a class="btn" href="index.html#">
+							<i class="icon-wrench"></i>
+						</a>
+					</li>
+					<!-- start: User Dropdown -->
+					<li class="dropdown">
+						<a class="btn account dropdown-toggle" data-toggle="dropdown" href="informativo.html">
+							<div class="avatar"><img src="assets/img/avatar.jpg" alt="Avatar"></div>
+							<div class="user">
+								<span class="hello">Bem Vindo</span>
+								<span class="name">Jônatas Medeiros</span>
+							</div>
+						</a>
+						<ul class="dropdown-menu">
+							<li class="dropdown-menu-title">
+								
+							</li>
+							<li><a href="index.html#"><i class="icon-user"></i> Profile</a></li>
+							<li><a href="index.html#"><i class="icon-cog"></i> Settings</a></li>
+							<li><a href="index.html#"><i class="icon-envelope"></i> Messages</a></li>
+							<li><a href="login.html"><i class="icon-off"></i> Logout</a></li>
+						</ul>
+					</li>
+					<!-- end: User Dropdown -->
+				</ul>
+			</div>
+			<!-- end: Header Menu -->
+			
+		</div>	
+	</header>
+	<!-- end: Header -->
 
-                <div id="logo" class="fleft">
-                        <!--a href="javascript:void(0);"><img src="images/logo.png" /></a-->
-                    <h5>S2ITP - Sistema de Informação Interativa de Transporte</h5>
-                </div>
-
-                <div id="nav" class="fright">
-                    <ul class="navigation">
-                        <li data-slide="1">Home</li>
-                        <li data-slide="2">Sobre</li>
-                        <li data-slide="4">Ônibus</li>
-                        <li data-slide="6">Paradas</li>
-                        <div class="clear"></div>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-
-
-        <div class="slide" id="slide8" data-slide="8" data-stellar-background-ratio="0.5">
-            <div class="padding_slide8">
-                <div class="grid_3">
-                    <div id="content" class="left">
-                        <img class="icon_img" src="images/icon1.jpg" />
-                        <h4>Para onde você deseja ir?</h4>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="order_block left">
-                        <form method="post" action="">
+        <div class="container">
+		<div class="row">
+				
+			<!-- start: Main Menu -->
+			<div id="sidebar-left" class="col-lg-4 col-sm-3">
+				
+				<div class="sidebar-nav">
+					<img class="icon_img" src="images/map-pin2x.png" />
+					<h3>Para onde você deseja ir?</h3>
+					<div class="clear"></div>
+				</div>
+                
+                    <form method="post" action="">
                         
                             <div>
       <label>Cidade:</label>
@@ -291,37 +355,128 @@ google.maps.event.addDomListener(window, 'load', initialize);
       <div id="load_linhas">
         <label>Linhas:</label>
         <select name="linha" id="linha">
-          <option value="">...:::Selecione a linha:::...</option>
+          <option value="">...::Selecione a linha:::...</option>
         </select>
       </div>
                             
                         </form>
                         
-                        <p><button type="button" onclick="calculateDistances();">Calculate
+                        <p><button class="btn space-top" type="button" onclick="calculateDistances();">Calculate
           distances</button></p>
           
            <div id="outputDiv"></div>
-                    </div>
-                </div>
+                
+           </div>
+			<!-- end: Main Menu -->
+						
+			<!-- start: Content -->
+			<div id="content" class="col-lg-8 col-sm-9">
+						
+				<div class="row">
+					
+					<div class="col-xs-12 alpha omega">
+					
+						<div id="map"></div>
+					
+					</div><!--/col-->	
+				
+				</div><!--/row-->					
+				
+     		
+			</div>
+			<!-- end: Content -->
+				
+		</div><!--/row-->		
+		
+	</div><!--/container-->
 
-                <div class="grid_9 alpha omega">
-                    <div id="map"></div>
-                </div>
-            </div>
-        </div>
+        
+        
+      <div class="modal fade" id="myModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Modal title</h4>
+					</div>
+					<div class="modal-body">
+						<p>Here settings can be configured...</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	
+	<div class="clearfix"></div>
+	
+	<footer>
+		<p>
+			<span style="text-align:left;float:left">S2ITP - Sistema de Informação Interativa de Transporte Público</span>
+			<span class="hidden-phone" style="text-align:right;float:right">Mobilidade Urbana - DF</span>
+		</p>
 
+	</footer>
 
+<!-- start: JavaScript-->
+	<!--[if !IE]>-->
 
-    </div>
+			<script src="assets/js/jquery-2.0.3.min.js"></script>
 
+	<!--<![endif]-->
 
-    <div id="footer">
-        <div class="container clearfix">
-            <div class="copyright">S2ITP - Sistema de Informação Interativa de Transporte &copy; 2013 | <a href="javascript:void(0);">Política de Privacidade</a></div>
-            <div id="back_top"><a class="button" title="" data-slide="1"></a></div>
-        </div>
-    </div>
+	<!--[if IE]>
+	
+		<script src="assets/js/jquery-1.10.2.min.js"></script>
+	
+	<![endif]-->
 
+	<!--[if !IE]>-->
 
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+			</script>
+
+	<!--<![endif]-->
+
+	<!--[if IE]>
+	
+		<script type="text/javascript">
+	 	window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+		</script>
+		
+	<![endif]-->
+	<script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	
+		
+	
+	
+	<!-- page scripts -->
+	<script src="assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+	<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
+	<script src="assets/js/jquery.sparkline.min.js"></script>
+	<script src="assets/js/fullcalendar.min.js"></script>
+	<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="assets/js/excanvas.min.js"></script><![endif]-->
+	<script src="assets/js/jquery.flot.min.js"></script>
+	<script src="assets/js/jquery.flot.pie.min.js"></script>
+	<script src="assets/js/jquery.flot.stack.min.js"></script>
+	<script src="assets/js/jquery.flot.resize.min.js"></script>
+	<script src="assets/js/jquery.flot.time.min.js"></script>
+	<script src="assets/js/jquery.autosize.min.js"></script>
+	<script src="assets/js/jquery.placeholder.min.js"></script>
+	
+	<!-- theme scripts -->
+	<script src="assets/js/custom.min.js"></script>
+	<script src="assets/js/core.min.js"></script>
+	
+	<!-- inline scripts related to this page -->
+	<script src="assets/js/pages/index.js"></script>
+	
+	<!--novos JS --> 
+	
+	<!-- end: JavaScript-->
 </body>
 </html>
