@@ -4,7 +4,10 @@ include_once './Controller/serviceController.php';
 
 $serviceController = new ServiceController();
 
-echo $process = $serviceController->getBusInfo();
-echo $process = $serviceController->getPointers();
+@$latitude = $_REQUEST['lat'];
+@$longitude = $_REQUEST['lng'];
+@$busId = $_REQUEST['busId'];
+
+$process = $serviceController->saveData($latitude, $longitude, $busId);
 
 ?>
