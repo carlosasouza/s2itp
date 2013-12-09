@@ -14,8 +14,9 @@ class Onibus {
     private $lotacao;
     private $qtdPassageiro;
     private $statusParada;
+    private $statusDefeito;
     
-    function __construct($id, $modelo, $latitude, $longitude, $lotacao, $qtdPassageiro, $statusParada) {
+    function __construct($id, $modelo, $latitude, $longitude, $lotacao, $qtdPassageiro, $statusParada, $statusDefeito) {
         $this->id = $id;
         $this->modelo = $modelo;
         $this->latitude = $latitude;
@@ -23,8 +24,9 @@ class Onibus {
         $this->lotacao = $lotacao;
         $this->qtdPassageiro = $qtdPassageiro;
         $this->statusParada = $statusParada;
+        $this->statusDefeito = $statusDefeito;
     }
-
+    
     public function getId() {
         return $this->id;
     }
@@ -53,6 +55,10 @@ class Onibus {
         return $this->statusParada;
     }
 
+    public function getStatusDefeito() {
+        return $this->statusDefeito;
+    }
+
     public function setId($id) {
         $this->id = $id;
     }
@@ -79,6 +85,10 @@ class Onibus {
 
     public function setStatusParada($statusParada) {
         $this->statusParada = $statusParada;
+    }
+
+    public function setStatusDefeito($statusDefeito) {
+        $this->statusDefeito = $statusDefeito;
     }
 
 }
