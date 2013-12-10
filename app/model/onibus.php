@@ -9,19 +9,15 @@ class Onibus {
     
     private $id;
     private $modelo;
-    private $latitude;
-    private $longitude;
     private $lotacao;
     private $qtdPassageiro;
     private $statusParada;
     private $statusDefeito;
     private $sentido;
             
-    function __construct($id, $modelo, $latitude, $longitude, $lotacao, $qtdPassageiro, $statusParada, $statusDefeito, $sentido) {
+    function __construct($id, $modelo, $lotacao, $qtdPassageiro, $statusParada, $statusDefeito, $sentido) {
         $this->id = $id;
         $this->modelo = $modelo;
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
         $this->lotacao = $lotacao;
         $this->qtdPassageiro = $qtdPassageiro;
         $this->statusParada = $statusParada;
@@ -44,23 +40,7 @@ class Onibus {
     public function setModelo($modelo) {
         $this->modelo = $modelo;
     }
-
-    public function getLatitude() {
-        return $this->latitude;
-    }
-
-    public function setLatitude($latitude) {
-        $this->latitude = $latitude;
-    }
-
-    public function getLongitude() {
-        return $this->longitude;
-    }
-
-    public function setLongitude($longitude) {
-        $this->longitude = $longitude;
-    }
-
+    
     public function getLotacao() {
         return $this->lotacao;
     }

@@ -1,6 +1,7 @@
 <?php
 
 include_once 'DataBase/dataBase.php';
+include_once '../model/onibus.php';
 
 class ServiceController {
 
@@ -15,16 +16,14 @@ class ServiceController {
         $stmt->bindParam(3, $statusDefeito, PDO::PARAM_STR);
         $stmt->bindParam(4, $sentido, PDO::PARAM_STR);
         $stmt->bindParam(5, $id, PDO::PARAM_STR);
-        
-        $resuladoUpdateOnibus = $stmt->execute();
+        $stmt->execute();
         
         $idOnibus = $pdo->lastInsertId();
         
         $stmt = $pdo->prepare("INSERT INTO `posicao`(`latitude`, `longitude`) VALUES (?, ?)");
         $stmt->bindParam(1, $latitude, PDO::PARAM_STR);
         $stmt->bindParam(2, $longitude, PDO::PARAM_STR);
-        
-        $resuladoUpdatePosicao = $stmt->execute();
+        $stmt->execute();
         
         $idPosicao = $pdo->lastInsertId();
         
@@ -32,47 +31,56 @@ class ServiceController {
         $stmt->bindParam(1, $idOnibus, PDO::PARAM_STR);
         $stmt->bindParam(2, $idPosicao, PDO::PARAM_STR);
         
-        $resulado = $stmt->execute();
+        $resultado = $stmt->execute();
         
-        if($resulado)
+        if($resultado)
             return true;
         else return false;
         
     }
 
-    function getBusInfo($idBus) {
-
+    function recuperaOnibus($id) {
+        
+        $onibus = new Onibus();
+        
         $pdo = Connection::getConnection();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-        $stmt = $pdo->prepare("SELECT `idBus`, `latitude`,`longitude` FROM `bus` WHERE `idBus` = ?");
-        $stmt->bindParam(1, $idBus, PDO::PARAM_STR);
-        $result = $stmt->execute();
-        $ok = $stmt->fetchAll();
+        $stmt = $pdo->prepare("SELECT * FROM `onibus` WHERE `id` = ?");
+        $stmt->bindParam(1, $id, PDO::PARAM_STR);
+        $stmt->execute();
+        
+        $array = $stmt->fetchAll();
 
-        if (is_array($ok))
-            return $ok;
+        if (is_array($array)){
+            foreach ($array as $row) {
+                $onibus->setId($row['idBus']);
+                $onibus->setModelo($row['modelo']);
+                $onibus->setLotacao($row['lotacao']);
+                $onibus->setQtdPassageiro($row['qtdPassageiro']);
+                $onibus->setStatusParada($row['statusParada']);
+                $onibus->setStatusDefeito($row['statusDefeito']);
+                $onibus->setSentido($row['sentido']);
+            }
+          return $onibus;
+        }
+        
         else
             return false;
-        /* foreach ($pdo->query($sql) as $row) {
-          print "idBus:". $row['idBus'] . "\t";
-          print "latitude:".$row['latitude'] . "\t";
-          print "longitude:".$row['longitude'] . "\n";
-          }
-          return $pdo->query($sql); */
+        
     }
 
-    function getCities() {
+    function recuperaCidades() {
 
         $pdo = Connection::getConnection();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-        $stmt = $pdo->prepare("SELECT * FROM  `city`");
+        $stmt = $pdo->prepare("SELECT * FROM `cidade`");
         $result = $stmt->execute();
-        $ok = $stmt->fetchAll();
+        $array = $stmt->fetchAll();
 
-        if (is_array($ok))
-            return $ok;
+        if (is_array($array))
+            return $array;
         else
             return false;
     }
