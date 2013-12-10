@@ -3,7 +3,7 @@
         public static function getConnection(){
             try
             {
-                $pdo = new PDO('mysql:dbname=s2itp2;host=localhost', 'root', '');
+                $pdo = new PDO('mysql:dbname=s2itp;host=localhost', 'root', '');
                 return $pdo;
             }
             catch (PDOException $e)
