@@ -4,18 +4,40 @@ include_once 'DataBase/dataBase.php';
 
 class ServiceController {
 
-    function saveData($latitude, $longitude, $idBus) {
+    function atualizaDadosOnibus($sentido, $statusDefeito, $statusParada, $qtdPassageiro, $latitude, $longitude, $id) {
 
         $pdo = Connection::getConnection();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-        $stmt = $pdo->prepare("UPDATE `bus` SET `latitude`=?,`longitude`=? WHERE `idBus` = ?");
+        $stmt = $pdo->prepare("UPDATE `onibus` SET `qtdPassageiro` = ?, `statusParada` = ?, `statusDefeito` = ?, `sentido` = ? WHERE `id` = ?");
+        $stmt->bindParam(1, $qtdPassageiro, PDO::PARAM_STR);
+        $stmt->bindParam(2, $statusParada, PDO::PARAM_STR);
+        $stmt->bindParam(3, $statusDefeito, PDO::PARAM_STR);
+        $stmt->bindParam(4, $sentido, PDO::PARAM_STR);
+        $stmt->bindParam(5, $id, PDO::PARAM_STR);
+        
+        $resuladoUpdateOnibus = $stmt->execute();
+        
+        $idOnibus = $pdo->lastInsertId();
+        
+        $stmt = $pdo->prepare("INSERT INTO `posicao`(`latitude`, `longitude`) VALUES (?, ?)");
         $stmt->bindParam(1, $latitude, PDO::PARAM_STR);
         $stmt->bindParam(2, $longitude, PDO::PARAM_STR);
-        $stmt->bindParam(3, $idBus, PDO::PARAM_STR);
-        $result = $stmt->execute();
-
-        return "Foi!";
+        
+        $resuladoUpdatePosicao = $stmt->execute();
+        
+        $idPosicao = $pdo->lastInsertId();
+        
+        $stmt = $pdo->prepare("INSERT INTO `onibus_posicao`(`onibus_id`, `Posicao_idposicao`) VALUES (?, ?)");
+        $stmt->bindParam(1, $idOnibus, PDO::PARAM_STR);
+        $stmt->bindParam(2, $idPosicao, PDO::PARAM_STR);
+        
+        $resulado = $stmt->execute();
+        
+        if($resulado)
+            return true;
+        else return false;
+        
     }
 
     function getBusInfo($idBus) {
