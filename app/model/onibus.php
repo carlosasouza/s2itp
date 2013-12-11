@@ -15,7 +15,7 @@ class Onibus {
     private $statusDefeito;
     private $sentido;
             
-    function __construct($id, $modelo, $lotacao, $qtdPassageiro, $statusParada, $statusDefeito, $sentido) {
+    /*function __construct($id, $modelo, $lotacao, $qtdPassageiro, $statusParada, $statusDefeito, $sentido) {
         $this->id = $id;
         $this->modelo = $modelo;
         $this->lotacao = $lotacao;
@@ -23,7 +23,7 @@ class Onibus {
         $this->statusParada = $statusParada;
         $this->statusDefeito = $statusDefeito;
         $this->sentido = $sentido;
-    }
+    }*/
     
     public function getId() {
         return $this->id;

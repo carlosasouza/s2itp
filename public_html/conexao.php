@@ -1,5 +1,5 @@
 <?php
-$db_banco ="s2itp2";
+$db_banco ="s2itp";
 $db_user = "root";
 $db_pass = "";
 $host = 'localhost';
