@@ -1,7 +1,7 @@
 <?php
 
 include_once 'DataBase/dataBase.php';
-include_once '../model/onibus.php';
+include_once '../app/model/onibus.php';
 
 class ServiceController {
 
@@ -75,43 +75,12 @@ class ServiceController {
         $pdo = Connection::getConnection();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-        $stmt = $pdo->prepare("SELECT * FROM `cidade`");
+        $stmt = $pdo->prepare("SELECT * FROM `cidade` ORDER BY `nome`");
         $result = $stmt->execute();
         $array = $stmt->fetchAll();
 
         if (is_array($array))
             return $array;
-        else
-            return false;
-    }
-
-    function getLines() {
-
-        $pdo = Connection::getConnection();
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-
-        $stmt = $pdo->prepare("SELECT * FROM  `line`,`city`,`pointer` WHERE `idCity` = ?");
-        $stmt->bindValue(1, 1);
-        $result = $stmt->execute();
-        $ok = $stmt->fetchAll();
-
-        if (is_array($ok))
-            return $ok;
-        else
-            return false;
-    }
-
-    function getPointers() {
-
-        $pdo = Connection::getConnection();
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-
-        $stmt = $pdo->prepare("SELECT * FROM  `pointer`");
-        $result = $stmt->execute();
-        $ok = $stmt->fetchAll();
-
-        if (is_array($ok))
-            return $ok;
         else
             return false;
     }
@@ -132,6 +101,22 @@ class ServiceController {
 
         return round($raioTerra * $valorExpresao2 * 1000);
         
+    }
+    
+    function recuperaLinhas($idCidade) {
+
+        $pdo = Connection::getConnection();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+        $stmt = $pdo->prepare("SELECT DISTINCT `id`, `numeroLinha`, `origem`, `destino` FROM `s2itp`.`cidade_linha`, `s2itp`.`linha`  WHERE `cidade_linha`.`linha_id` = `linha`.`id` AND `cidade_linha`.`cidade_id` = ?");
+        $stmt->bindParam(1, $idCidade, PDO::PARAM_STR);
+        $result = $stmt->execute();
+        $array = $stmt->fetchAll();
+
+        if (is_array($array))
+            return $array;
+        else
+            return false;
     }
 
 }

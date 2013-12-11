@@ -1,32 +1,35 @@
 ﻿<?php
 include('conexao.php');
-$sql = "SELECT * FROM city ORDER BY city_name";
-$res = mysql_query($sql, $conexao);
-$num = mysql_num_rows($res);
-for ($i = 0; $i < $num; $i++) {
-    $dados = mysql_fetch_array($res);
-    $arrEstados[$dados['idCity']] = $dados['city_name'];
-}
-
 include_once '../app/controller/serviceController.php';
 $serviceController = new ServiceController();
+
+$cidades = $serviceController->recuperaCidades();
+
+/*
+echo "<pre>";
+print_r($cidades);
+echo "</pre>";
+
+die;
+ */
+
 //onibus
-$infoBus = $serviceController->getBusInfo(1);
-@$latitudeBus = $infoBus[0]['latitude'];
-@$longitudeBus = $infoBus[0]['longitude'];
-@$descBus = $infoBus[0]['Line_idLine'];
+#$infoBus = $serviceController->getBusInfo(1);
+#@$latitudeBus = $infoBus[0]['latitude'];
+#@$longitudeBus = $infoBus[0]['longitude'];
+#@$descBus = $infoBus[0]['Line_idLine'];
 //parada
-$infoPointer = $serviceController->getPointers(1);
-@$latitudePointer = $infoPointer[0]['latitude'];
-@$longitudePointer = $infoPointer[0]['longitude'];
-@$descPointer = $infoPointer[0]['description'];
+#$infoPointer = $serviceController->getPointers(1);
+#@$latitudePointer = $infoPointer[0]['latitude'];
+#@$longitudePointer = $infoPointer[0]['longitude'];
+#@$descPointer = $infoPointer[0]['description'];
 /* echo '<pre>';
   print_r($infoBus);
   echo '</pre>';
   die; */
-$infoCidades = $serviceController->getCities();
-$infoLines = $serviceController->getLines();
-$infoPointers = $serviceController->getPointers();
+#@$infoCidades = $serviceController->getCities();
+#$infoLines = $serviceController->getLines();
+#$infoPointers = $serviceController->getPointers();
 ?>
 
 
@@ -94,8 +97,8 @@ $infoPointers = $serviceController->getPointers();
             directionsRenderer = new google.maps.DirectionsRenderer();
             //directionsRenderer.setMap(map);
 
-            var origin1 = new google.maps.LatLng(<?php echo $latitudeBus; ?>, <?php echo $longitudeBus; ?>);
-            var destinationA = new google.maps.LatLng(<?php echo $latitudePointer; ?>, <?php echo $longitudePointer; ?>);
+            var origin1 = new google.maps.LatLng(-15.9968, -48.05655);
+            var destinationA = new google.maps.LatLng(-15.9857, -48.042293);
 
 
             var destinationIcon = 'http://www.clker.com/cliparts/5/3/f/1/123756068293974412milovanderlinden_Funny_Bus_stop.svg';
@@ -156,10 +159,10 @@ $infoPointers = $serviceController->getPointers();
                 var desc;
                 if (isDestination) {
                     icon = destinationIcon;
-                    desc = '<?php echo $descPointer; ?>';
+                    desc = 'xpto';
                 } else {
                     icon = originIcon;
-                    desc = '<?php echo $descBus; ?>';
+                    desc = 'xpto';
                 }
                 geocoder.geocode({'address': location}, function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
@@ -222,9 +225,10 @@ $infoPointers = $serviceController->getPointers();
             });
 
             function buscar_linha() {
-                var cidade = $('#cidade').val();
-                if (cidade) {
-                    var url = 'ajax_buscar_linha.php?cidade=' + cidade;
+                var idCidade = $('#cidade').val();
+                
+                if (idCidade) {
+                    var url = 'ajax_buscar_linhas.php?idCidade='+idCidade;
                     $.get(url, function(dataReturn) {
                         $('#load_linhas').html(dataReturn);
                     });
@@ -344,11 +348,11 @@ $infoPointers = $serviceController->getPointers();
 
                         <div>
                             <label>Cidade:</label>
-                            <select name="cidade" id="cidade" onchange="buscar_linha()">
-                                <option value="">...:::Selecione:::...</option>
+                            <select name="cidade" id='cidade'  onchange="buscar_linha()">
+                                <option value="...:::Selecione:::...">...:::Selecione:::...</option>
                                 <?php
-                                foreach ($arrEstados as $value => $name) {
-                                    echo "<option value='".utf8_encode($value)."'>".utf8_encode($name)."</option>";
+                                foreach ($cidades as $cidade) {
+                                    echo "<option value='".utf8_encode($cidade['id'])."'>".utf8_encode($cidade['nome'])."</option>";
                                 }
                                 ?>
                             </select>
@@ -356,7 +360,7 @@ $infoPointers = $serviceController->getPointers();
                         <div id="load_linhas">
                             <label>Linhas:</label>
                             <select name="linha" id="linha">
-                                <option value="">...::Selecione a linha:::...</option>
+                                <option value="...::Selecione a linha:::...">...::Selecione a linha:::...</option>
                             </select>
                         </div>
 
