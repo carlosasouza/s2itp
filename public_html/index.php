@@ -1,7 +1,10 @@
 ﻿<?php
 
 include_once '../app/controller/serviceController.php';
+
 $serviceController = new ServiceController();
+
+$idParada = 1;
 
 $cidades = $serviceController->recuperaCidades();
 
@@ -335,7 +338,7 @@ $cidades = $serviceController->recuperaCidades();
                         <div id="load_linhas">
                             <label>Linhas:</label>
                             <select name="linha" id="linha">
-                                <option value="...::Selecione a linha:::...">...::Selecione a linha:::...</option>
+                                <option value="...::Selecione a linha:::...">...:::Selecione:::...</option>
                             </select>
                         </div>
 

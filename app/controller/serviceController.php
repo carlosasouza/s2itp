@@ -108,7 +108,7 @@ class ServiceController {
         $pdo = Connection::getConnection();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-        $stmt = $pdo->prepare("SELECT DISTINCT `id`, `numeroLinha`, `origem`, `destino` FROM `s2itp`.`cidade_linha`, `s2itp`.`linha`  WHERE `cidade_linha`.`linha_id` = `linha`.`id` AND `cidade_linha`.`cidade_id` = ?");
+        $stmt = $pdo->prepare("SELECT DISTINCT `id`, `numeroLinha`, `origem`, `destino` FROM `s2itp`.`cidade_linha`, `s2itp`.`linha`  WHERE `cidade_linha`.`linha_id` = `linha`.`id` AND `cidade_linha`.`cidade_id` = ? ORDER BY `numeroLinha`");
         $stmt->bindParam(1, $idCidade, PDO::PARAM_STR);
         $result = $stmt->execute();
         $array = $stmt->fetchAll();
