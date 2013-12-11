@@ -1,35 +1,10 @@
 ﻿<?php
-include('conexao.php');
+
 include_once '../app/controller/serviceController.php';
 $serviceController = new ServiceController();
 
 $cidades = $serviceController->recuperaCidades();
 
-/*
-echo "<pre>";
-print_r($cidades);
-echo "</pre>";
-
-die;
- */
-
-//onibus
-#$infoBus = $serviceController->getBusInfo(1);
-#@$latitudeBus = $infoBus[0]['latitude'];
-#@$longitudeBus = $infoBus[0]['longitude'];
-#@$descBus = $infoBus[0]['Line_idLine'];
-//parada
-#$infoPointer = $serviceController->getPointers(1);
-#@$latitudePointer = $infoPointer[0]['latitude'];
-#@$longitudePointer = $infoPointer[0]['longitude'];
-#@$descPointer = $infoPointer[0]['description'];
-/* echo '<pre>';
-  print_r($infoBus);
-  echo '</pre>';
-  die; */
-#@$infoCidades = $serviceController->getCities();
-#$infoLines = $serviceController->getLines();
-#$infoPointers = $serviceController->getPointers();
 ?>
 
 
@@ -97,8 +72,8 @@ die;
             directionsRenderer = new google.maps.DirectionsRenderer();
             //directionsRenderer.setMap(map);
 
-            var origin1 = new google.maps.LatLng(-15.9968, -48.05655);
-            var destinationA = new google.maps.LatLng(-15.9857, -48.042293);
+            var origin1 = new google.maps.LatLng(-15.9857, -48.042293);
+            var destinationA = new google.maps.LatLng(-15.9968, -48.05800);
 
 
             var destinationIcon = 'http://www.clker.com/cliparts/5/3/f/1/123756068293974412milovanderlinden_Funny_Bus_stop.svg';
