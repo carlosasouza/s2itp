@@ -21,6 +21,10 @@ $infoLinha = $serviceController->recuperaLinhas(1);
 $numeroLinha = $infoLinha[0]['numeroLinha']."<br>";
 $destino = $infoLinha[0]['destino']."<br>";
 
+$infoLinha2 = $serviceController->recuperaLinhas(2);
+$numeroLinha2 = $infoLinha2[0]['numeroLinha']."<br>";
+$destino2 = $infoLinha2[0]['destino']."<br>";
+
 $infoPosicao = $serviceController->recuperaPosicao(1);
 $nomeParada = $infoPosicao[0]['parada_nome']."<br>";
 $latitudeParada = $infoPosicao[0]['parada_latitude']."<br>";
@@ -205,14 +209,14 @@ $longitudePosicao = $infoPosicao[0]['posicao_longitude']."<br>";
                             <tr>
                                 <td><span class="label label-success"><?php echo $numeroLinha; ?></span></td>
                                 <td class="center"><?php echo $destino; ?></td>
-                                <td class="center"><div id="outputDiv"></div></td>
+                                <td class="center"><div id="outputDiv"><script>document.write("Teste"+calculateDistance());</script></div></td>
 
                     
                             </tr>
                             <tr>
-                                <td><span class="label label-success">200.1</span></td>
-                                <td class="center">Rodoviária do Plano Piloto</td>
-                                <td class="center">10 minutos</td>
+                                <td><span class="label label-success"><?php echo $numeroLinha2; ?></span></td>
+                                <td class="center"><?php echo $destino2; ?></td>
+                                <td class="center"><div id="outputDiv"></div></td>
 
                             </tr>               
                         </tbody>
