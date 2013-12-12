@@ -4,7 +4,7 @@ include_once '../app/controller/serviceController.php';
 
 $serviceController = new ServiceController();
 
-$idParada = 1;
+$idParada = 8;
 
 $cidades = $serviceController->recuperaCidades();
 
@@ -206,9 +206,20 @@ $cidades = $serviceController->recuperaCidades();
                 var idCidade = $('#cidade').val();
                 
                 if (idCidade) {
-                    var url = 'ajax_buscar_linhas.php?idCidade='+idCidade;
+                    var url = 'ajax_buscar.php?linha=true&idCidade='+idCidade;
                     $.get(url, function(dataReturn) {
                         $('#load_linhas').html(dataReturn);
+                    });
+                }
+            }
+            
+            function buscar_parada() {
+                var idCidade = $('#cidade').val();
+                
+                if (idCidade) {
+                    var url = 'ajax_buscar.php?parada=true&idCidade='+idCidade;
+                    $.get(url, function(dataReturn) {
+                        $('#load_paradas').html(dataReturn);
                     });
                 }
             }
@@ -326,8 +337,8 @@ $cidades = $serviceController->recuperaCidades();
 
                         <div>
                             <label>Cidade:</label>
-                            <select name="cidade" id='cidade'  onchange="buscar_linha()">
-                                <option value="...:::Selecione:::...">...:::Selecione:::...</option>
+                            <select name="cidade" id='cidade' onchange="buscar_linha()">
+                                <option value="...:::Selecione a Cidade:::...">...:::Selecione a Cidade:::...</option>
                                 <?php
                                 foreach ($cidades as $cidade) {
                                     echo "<option value='".utf8_encode($cidade['id'])."'>".utf8_encode($cidade['nome'])."</option>";
@@ -337,11 +348,16 @@ $cidades = $serviceController->recuperaCidades();
                         </div>
                         <div id="load_linhas">
                             <label>Linhas:</label>
-                            <select name="linha" id="linha">
-                                <option value="...::Selecione a linha:::...">...:::Selecione:::...</option>
+                            <select name="linha" id="linha" onchange="buscar_parada()">
+                                <option value="...::Selecione a Linha:::...">...::Selecione a Linha:::...</option>
                             </select>
                         </div>
-
+                        <div id="load_paradas">
+                            <label>Linhas:</label>
+                            <select name="parada" id="parada">
+                                <option value="...::Selecione a Parada:::...">...::Selecione a Parada:::...</option>
+                            </select>
+                        </div>
                     </form>
 
                     <p><button class="btn space-top" type="button" onclick="calculateDistances();">Calculate
