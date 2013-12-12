@@ -54,7 +54,7 @@ class ServiceController {
 
         if (is_array($array)){
             foreach ($array as $row) {
-                $onibus->setId($row['idBus']);
+                $onibus->setId($row['id']);
                 $onibus->setModelo($row['modelo']);
                 $onibus->setLotacao($row['lotacao']);
                 $onibus->setQtdPassageiro($row['qtdPassageiro']);
@@ -102,7 +102,7 @@ class ServiceController {
         return round($raioTerra * $valorExpresao2 * 1000);
         
     }
-    
+	
     function recuperaLinhas($idCidade) {
 
         $pdo = Connection::getConnection();
@@ -119,6 +119,61 @@ class ServiceController {
             return false;
     }
 
+    function recuperaParadas() {
+
+        $pdo = Connection::getConnection();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+        $stmt = $pdo->prepare("SELECT * FROM `parada`");
+        $result = $stmt->execute();
+        $array = $stmt->fetchAll();
+
+        if (is_array($array))
+            return $array;
+        else
+            return false;
+        
+    }
+    
+    function recuperaPosicao($id){
+        
+        $pdo = Connection::getConnection();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+        $stmt = $pdo->prepare("SELECT DISTINCT `parada`.`nome` as `parada_nome`, `parada`.`latitude` as `parada_latitude`, `parada`.`longitude` as `parada_longitude`, `posicao`.`latitude` as `posicao_latitude`, `posicao`.`longitude` as `posicao_longitude` FROM `s2itp`.`posicao`, `s2itp`.`onibus_posicao`, `s2itp`.`parada`, `s2itp`.`linha_parada`  WHERE `parada`.`id` = ?");
+        $stmt->bindParam(1, $id, PDO::PARAM_STR);
+        $stmt->execute();
+        $array = $stmt->fetchAll();
+
+        if (is_array($array))
+            return $array;
+        else
+            return false;
+        
+    }
+
+    function calculaDistancia($latParadaAtual, $longParadaAtual, $latProximaParada, $longProximaParada) {
+
+        $raioTerra = 6371.0;
+        $latParadaAtual = $latParadaAtual * pi() / 180.0;
+        $longParadaAtual = $longParadaAtual * pi() / 180.0;
+        $latProximaParada = $latProximaParada * pi() / 180.0;
+        $longProximaParada = $longProximaParada * pi() / 180.0;
+
+        $distanciaLat = $latProximaParada - $latParadaAtual;
+        $distanciaLong = $longProximaParada - $longParadaAtual;
+
+        $valorExpresao1 = sin($distanciaLat / 2) * sin($distanciaLat / 2) + cos($latParadaAtual) * cos($latProximaParada) * sin($distanciaLong / 2) * sin($distanciaLong / 2);
+        $valorExpresao2 = 2 * atan2(sqrt($valorExpresao1), sqrt(1 - $valorExpresao1));
+
+        $resultado = round($raioTerra * $valorExpresao2 * 1000);
+        
+        if($resultado < 1000){
+            return true; 
+        } else return false;
+        
+    }
+    
 }
 
 ?>
