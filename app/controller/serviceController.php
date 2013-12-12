@@ -119,12 +119,13 @@ class ServiceController {
             return false;
     }
 
-    function recuperaParadas() {
+    function recuperaParadas($idCidade) {
 
         $pdo = Connection::getConnection();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-        $stmt = $pdo->prepare("SELECT * FROM `parada`");
+        $stmt = $pdo->prepare("SELECT DISTINCT `parada`.`id`, `parada`.`nome` FROM `s2itp`.`parada`, `s2itp`.`cidade`, `s2itp`.`linha_parada`, `s2itp`.`cidade_linha`, `s2itp`.`linha` WHERE `cidade`.`id` = `cidade_linha`.`cidade_id` AND `cidade_linha`.`linha_id` = `linha`.`id` AND `linha`.`id` = `linha_parada`.`linha_id` AND `linha_parada`.`parada_id` = `parada`.`id` AND `cidade`.`id` = ? ORDER BY `parada`.`nome`");
+        $stmt->bindParam(1, $idCidade, PDO::PARAM_STR);
         $result = $stmt->execute();
         $array = $stmt->fetchAll();
 
