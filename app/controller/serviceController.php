@@ -165,7 +165,7 @@ class ServiceController {
 
         $resultado = round($raioTerra * $valorExpresao2 * 1000);
         
-        if($resultado < 1000){
+        if($resultado < 2000){
             return true; 
         } else return false;
         
@@ -186,6 +186,20 @@ class ServiceController {
         else
             return false;
         
+    }
+    
+    function populaInformativo(){
+        $pdo = Connection::getConnection();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+        $stmt = $pdo->prepare("SELECT DISTINCT `onibus`.`id`, `linha`.`numeroLinha`, `linha`.`origem`, `linha`.`destino`,  `posicao`.`latitude`, `posicao`.`longitude` FROM `linha`, `linha_parada`, `parada`, `posicao`, `onibus`, `onibus_posicao` WHERE `parada`.`id` = 1 AND `parada`.`id` = `linha_parada`.`parada_id` AND `linha_parada`.`linha_id` = `linha`.`id` AND `linha`.`id` = `onibus`.`linha_id` AND `onibus`.`id` = `onibus_posicao`.`onibus_id` AND `onibus_posicao`.`posicao_idposicao` = `posicao`.`idposicao` ORDER BY `numeroLinha`");
+        $result = $stmt->execute();
+        $array = $stmt->fetchAll();
+
+        if (is_array($array))
+            return $array;
+        else
+            return false;        
     }
     
 }
