@@ -14,7 +14,9 @@ class Onibus {
     private $statusParada;
     private $statusDefeito;
     private $sentido;
-            
+    private $circulacao;
+
+
     /*function __construct($id, $modelo, $lotacao, $qtdPassageiro, $statusParada, $statusDefeito, $sentido) {
         $this->id = $id;
         $this->modelo = $modelo;
@@ -25,61 +27,69 @@ class Onibus {
         $this->sentido = $sentido;
     }*/
     
-    public function getId() {
-        return $this->id;
-    }
+ public function getId() {
+     return $this->id;
+ }
 
-    public function setId($id) {
-        $this->id = $id;
-    }
+ public function getModelo() {
+     return $this->modelo;
+ }
 
-    public function getModelo() {
-        return $this->modelo;
-    }
+ public function getLotacao() {
+     return $this->lotacao;
+ }
 
-    public function setModelo($modelo) {
-        $this->modelo = $modelo;
-    }
-    
-    public function getLotacao() {
-        return $this->lotacao;
-    }
+ public function getQtdPassageiro() {
+     return $this->qtdPassageiro;
+ }
 
-    public function setLotacao($lotacao) {
-        $this->lotacao = $lotacao;
-    }
+ public function getStatusParada() {
+     return $this->statusParada;
+ }
 
-    public function getQtdPassageiro() {
-        return $this->qtdPassageiro;
-    }
+ public function getStatusDefeito() {
+     return $this->statusDefeito;
+ }
 
-    public function setQtdPassageiro($qtdPassageiro) {
-        $this->qtdPassageiro = $qtdPassageiro;
-    }
+ public function getSentido() {
+     return $this->sentido;
+ }
 
-    public function getStatusParada() {
-        return $this->statusParada;
-    }
+ public function getCirculacao() {
+     return $this->circulacao;
+ }
 
-    public function setStatusParada($statusParada) {
-        $this->statusParada = $statusParada;
-    }
+ public function setId($id) {
+     $this->id = $id;
+ }
 
-    public function getStatusDefeito() {
-        return $this->statusDefeito;
-    }
+ public function setModelo($modelo) {
+     $this->modelo = $modelo;
+ }
 
-    public function setStatusDefeito($statusDefeito) {
-        $this->statusDefeito = $statusDefeito;
-    }
+ public function setLotacao($lotacao) {
+     $this->lotacao = $lotacao;
+ }
 
-    public function getSentido() {
-        return $this->sentido;
-    }
+ public function setQtdPassageiro($qtdPassageiro) {
+     $this->qtdPassageiro = $qtdPassageiro;
+ }
 
-    public function setSentido($sentido) {
-        $this->sentido = $sentido;
-    }
+ public function setStatusParada($statusParada) {
+     $this->statusParada = $statusParada;
+ }
+
+ public function setStatusDefeito($statusDefeito) {
+     $this->statusDefeito = $statusDefeito;
+ }
+
+ public function setSentido($sentido) {
+     $this->sentido = $sentido;
+ }
+
+ public function setCirculacao($circulacao) {
+     $this->circulacao = $circulacao;
+ }
     
 }
 

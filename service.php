@@ -1,6 +1,6 @@
 <?php
 
-include_once './Controller/serviceController.php';
+include_once './app/controller/serviceController.php';
 
 $serviceController = new ServiceController();
 
@@ -8,6 +8,6 @@ $serviceController = new ServiceController();
 @$longitude = $_REQUEST['lng'];
 @$busId = $_REQUEST['busId'];
 
-$process = $serviceController->saveData($latitude, $longitude, $busId);
+$process = $serviceController->atualizaDadosOnibus(0, 0, 'null', 20, $latitude, $longitude, 1, $busId);
 
 ?>

@@ -1,24 +1,22 @@
 <?php
 
 include_once 'DataBase/dataBase.php';
-include_once '../app/model/onibus.php';
 
 class ServiceController {
 
-    function atualizaDadosOnibus($sentido, $statusDefeito, $statusParada, $qtdPassageiro, $latitude, $longitude, $id) {
+    function atualizaDadosOnibus($sentido, $statusDefeito, $statusParada, $qtdPassageiro, $latitude, $longitude, $circulacao, $id) {
 
         $pdo = Connection::getConnection();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-        $stmt = $pdo->prepare("UPDATE `onibus` SET `qtdPassageiro` = ?, `statusParada` = ?, `statusDefeito` = ?, `sentido` = ? WHERE `id` = ?");
+        $stmt = $pdo->prepare("UPDATE `onibus` SET `qtdPassageiro` = ?, `statusParada` = ?, `statusDefeito` = ?, `sentido` = ?, `circulacao` = ? WHERE `id` = ?");
         $stmt->bindParam(1, $qtdPassageiro, PDO::PARAM_STR);
         $stmt->bindParam(2, $statusParada, PDO::PARAM_STR);
         $stmt->bindParam(3, $statusDefeito, PDO::PARAM_STR);
         $stmt->bindParam(4, $sentido, PDO::PARAM_STR);
-        $stmt->bindParam(5, $id, PDO::PARAM_STR);
+        $stmt->bindParam(5, $circulacao, PDO::PARAM_STR);
+        $stmt->bindParam(6, $id, PDO::PARAM_STR);
         $stmt->execute();
-        
-        $idOnibus = $pdo->lastInsertId();
         
         $stmt = $pdo->prepare("INSERT INTO `posicao`(`latitude`, `longitude`) VALUES (?, ?)");
         $stmt->bindParam(1, $latitude, PDO::PARAM_STR);
@@ -27,9 +25,12 @@ class ServiceController {
         
         $idPosicao = $pdo->lastInsertId();
         
-        $stmt = $pdo->prepare("INSERT INTO `onibus_posicao`(`onibus_id`, `Posicao_idposicao`) VALUES (?, ?)");
-        $stmt->bindParam(1, $idOnibus, PDO::PARAM_STR);
-        $stmt->bindParam(2, $idPosicao, PDO::PARAM_STR);
+        $onibusLinhaId = 1;
+        
+        $stmt = $pdo->prepare("INSERT INTO `onibus_posicao`(`onibus_id`, `onibus_linha_id`, `Posicao_idposicao`) VALUES (?, ?, ?)");
+        $stmt->bindParam(1, $id, PDO::PARAM_STR);
+        $stmt->bindParam(2, $onibusLinhaId, PDO::PARAM_STR);
+        $stmt->bindParam(3, $idPosicao, PDO::PARAM_STR);
         
         $resultado = $stmt->execute();
         
@@ -39,32 +40,19 @@ class ServiceController {
         
     }
 
-    function recuperaOnibus($id) {
-        
-        $onibus = new Onibus();
+    function recuperaOnibus($idLinha) {
         
         $pdo = Connection::getConnection();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-        $stmt = $pdo->prepare("SELECT * FROM `onibus` WHERE `id` = ?");
-        $stmt->bindParam(1, $id, PDO::PARAM_STR);
+        $stmt = $pdo->prepare("SELECT DISTINCT `onibus`.`id`, `posicao`.`latitude`, `posicao`.`longitude`, `linha`.`numeroLinha` FROM `onibus`, `linha`, `posicao`, `onibus_posicao` WHERE `onibus`.`id` = `onibus_posicao`.`onibus_id` AND `onibus_posicao`.`Posicao_idposicao` = `posicao`.`idposicao` AND `onibus`.`linha_id` = `linha`.`id` AND `onibus`.`circulacao` = 1 AND `linha`.`id` = ?");
+        $stmt->bindParam(1, $idLinha, PDO::PARAM_STR);
         $stmt->execute();
         
         $array = $stmt->fetchAll();
 
-        if (is_array($array)){
-            foreach ($array as $row) {
-                $onibus->setId($row['id']);
-                $onibus->setModelo($row['modelo']);
-                $onibus->setLotacao($row['lotacao']);
-                $onibus->setQtdPassageiro($row['qtdPassageiro']);
-                $onibus->setStatusParada($row['statusParada']);
-                $onibus->setStatusDefeito($row['statusDefeito']);
-                $onibus->setSentido($row['sentido']);
-            }
-          return $onibus;
-        }
-        
+        if (is_array($array))
+            return $array;
         else
             return false;
         
@@ -99,17 +87,25 @@ class ServiceController {
         $valorExpresao1 = sin($distanciaLat / 2) * sin($distanciaLat / 2) + cos($latParadaAtual) * cos($latProximaParada) * sin($distanciaLong / 2) * sin($distanciaLong / 2);
         $valorExpresao2 = 2 * atan2(sqrt($valorExpresao1), sqrt(1 - $valorExpresao1));
 
-        return round($raioTerra * $valorExpresao2 * 1000);
-        
+        $distancia = $raioTerra * $valorExpresao2 * 1000;
+        $velocidade = (60 * 1000 / 60);
+                 
+        $tempo = ($distancia/$velocidade);
+         
+        if($tempo < 1)
+            return 'Menos de 1 minuto';
+        else
+            return round ($tempo)." minuto(s)";
+         
     }
 	
-    function recuperaLinhas($idCidade) {
+    function recuperaLinhas($idParada) {
 
         $pdo = Connection::getConnection();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-        $stmt = $pdo->prepare("SELECT DISTINCT `id`, `numeroLinha`, `origem`, `destino` FROM `s2itp`.`cidade_linha`, `s2itp`.`linha`  WHERE `cidade_linha`.`linha_id` = `linha`.`id` AND `cidade_linha`.`cidade_id` = ? ORDER BY `numeroLinha`");
-        $stmt->bindParam(1, $idCidade, PDO::PARAM_STR);
+        $stmt = $pdo->prepare("SELECT DISTINCT `linha`.`id`, `linha`.`numeroLinha`, `linha`.`origem`, `linha`.`destino` FROM `linha`, `linha_parada`, `parada` WHERE `linha_parada`.`linha_id` = `linha`.`id` AND `linha_parada`.`parada_id` = `parada`.`id` AND `parada`.`id` = ? ORDER BY `linha`.`numeroLinha`");
+        $stmt->bindParam(1, $idParada, PDO::PARAM_STR);
         $result = $stmt->execute();
         $array = $stmt->fetchAll();
 
@@ -124,7 +120,7 @@ class ServiceController {
         $pdo = Connection::getConnection();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-        $stmt = $pdo->prepare("SELECT DISTINCT `parada`.`id`, `parada`.`nome` FROM `s2itp`.`parada`, `s2itp`.`cidade`, `s2itp`.`linha_parada`, `s2itp`.`cidade_linha`, `s2itp`.`linha` WHERE `cidade`.`id` = `cidade_linha`.`cidade_id` AND `cidade_linha`.`linha_id` = `linha`.`id` AND `linha`.`id` = `linha_parada`.`linha_id` AND `linha_parada`.`parada_id` = `parada`.`id` AND `cidade`.`id` = ? ORDER BY `parada`.`nome`");
+        $stmt = $pdo->prepare("SELECT DISTINCT `parada`.`id`, `parada`.`nome`, `parada`.`latitude`, `parada`.`longitude` FROM `parada`, `cidade`, `cidade_parada` WHERE `parada`.`id` = `cidade_parada`.`parada_id` AND `cidade_parada`.`cidade_id` = `cidade`.`id` AND `cidade`.`id` = ? ORDER BY `parada`.`nome`");
         $stmt->bindParam(1, $idCidade, PDO::PARAM_STR);
         $result = $stmt->execute();
         $array = $stmt->fetchAll();
@@ -172,6 +168,23 @@ class ServiceController {
         if($resultado < 1000){
             return true; 
         } else return false;
+        
+    }
+    
+    function recuperaParada($idParada) {
+
+        $pdo = Connection::getConnection();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+        $stmt = $pdo->prepare("SELECT * FROM `parada` WHERE `parada`.`id` = ?");
+        $stmt->bindParam(1, $idParada, PDO::PARAM_STR);
+        $result = $stmt->execute();
+        $array = $stmt->fetchAll();
+
+        if (is_array($array))
+            return $array;
+        else
+            return false;
         
     }
     

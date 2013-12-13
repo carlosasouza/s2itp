@@ -40,7 +40,7 @@ $cidades = $serviceController->recuperaCidades();
         <script type="text/javascript" src="../gmaps.js"></script>
         <link rel="stylesheet" type="text/css" href="css/examples.css" /> <!--esse causa aquele problema do topo descer -->
 
-        <!--script type="text/javascript">
+        <!--<script type="text/javascript">
             var map;
             $(document).ready(function() {
                 var map = new GMaps({
@@ -59,9 +59,9 @@ $cidades = $serviceController->recuperaCidades();
 
             });
             
-        </script!-->
+        </script>!-->
 
-        <script>
+        <script type="text/javascript">
             var map;
             var geocoder;
             var bounds = new google.maps.LatLngBounds();
@@ -169,44 +169,12 @@ $cidades = $serviceController->recuperaCidades();
             }
 
             google.maps.event.addDomListener(window, 'load', initialize);
-
-        </script>
-
-
-        <!--[if lt IE 9]>
-                <script src="js/html5shiv.js"></script>
-                <script src="js/respond.src.js"></script>
-        <![endif]-->
-
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $("#ajax-contact-form").submit(function() {
-                    var str = $(this).serialize();
-                    $.ajax({
-                        type: "POST",
-                        url: "contact_form/contact_process.php",
-                        data: str,
-                        success: function(msg) {
-                            // Message Sent - Show the 'Thank You' message and hide the form
-                            if (msg == 'OK') {
-                                result = '<div class="notification_ok">Your message has been sent. Thank you!</div>';
-                                $("#fields").hide();
-                            } else {
-                                result = msg;
-                            }
-                            $('#note').html(result);
-                        }
-                    });
-                    return false;
-                });
-
-            });
-
+            
             function buscar_linha() {
-                var idCidade = $('#cidade').val();
+                var idParada = $('#parada').val();
                 
-                if (idCidade) {
-                    var url = 'ajax_buscar.php?linha=true&idCidade='+idCidade;
+                if (idParada) {
+                    var url = 'ajax_buscar.php?linha=true&idParada='+idParada;
                     $.get(url, function(dataReturn) {
                         $('#load_linhas').html(dataReturn);
                     });
@@ -223,10 +191,26 @@ $cidades = $serviceController->recuperaCidades();
                     });
                 }
             }
+            
+            function atualiza_mapa(){
+                var idLinha = $('#linha').val();
+                var idParada = $('#parada').val();
+                
+                if (idLinha && idParada) {
+                    var url = 'ajax_buscar.php?onibus=true&idParada='+idParada+'&idLinha='+idLinha;
+                    $.get(url, function(dataReturn) {
+                        $('#map').html(dataReturn);
+                    });
+                }                
+            }
 
         </script>
 
-        <script type="text/javascript">/*$($.date_input.initialize);*/</script>
+
+        <!--[if lt IE 9]>
+                <script src="js/html5shiv.js"></script>
+                <script src="js/respond.src.js"></script>
+        <![endif]-->
 
     </head>
 
@@ -296,10 +280,10 @@ $cidades = $serviceController->recuperaCidades();
                         <!-- start: User Dropdown -->
                         <li class="dropdown">
                             <a class="btn account dropdown-toggle" data-toggle="dropdown" href="informativo.html">
-                                <div class="avatar"><img src="assets/img/avatar.jpg" alt="Avatar"></div>
+                                <div class="avatar"><img src="images/user.png" alt="Avatar"></div>
                                 <div class="user">
                                     <span class="hello">Bem Vindo</span>
-                                    <span class="name">Jônatas Medeiros</span>
+                                    <span class="name">Visitante</span>
                                 </div>
                             </a>
                             <ul class="dropdown-menu">
@@ -329,7 +313,7 @@ $cidades = $serviceController->recuperaCidades();
 
                     <div class="sidebar-nav">
                         <img class="icon_img" src="images/map-pin2x.png" />
-                        <h3>Para onde você deseja ir?</h3>
+                        <h3>Entre com suas informações de localização atual:</h3>
                         <div class="clear"></div>
                     </div>
 
@@ -349,22 +333,16 @@ $cidades = $serviceController->recuperaCidades();
                         <div id="load_paradas">
                             <label>Paradas:</label>
                             <select name="parada" id="parada" onchange="buscar_linha()">
-                                <option value="...::Selecione a Parada:::...">...::Selecione a Parada:::...</option>
+                                <option value="...:::Selecione a Parada:::...">...:::Selecione a Parada:::...</option>
                             </select>
                         </div>
                         <div id="load_linhas">
                             <label>Linhas:</label>
-                            <select name="linha" id="linha">
-                                <option value="...::Selecione a Linha:::...">...::Selecione a Linha:::...</option>
+                            <select name="linha" id="linha" onchange="atualiza_mapa()">
+                                <option value="...:::Selecione a Linha:::...">...:::Selecione a Linha:::...</option>
                             </select>
                         </div>
                     </form>
-
-                    <p><button class="btn space-top" type="button" onclick="calculateDistances();">Calculate
-                            distances</button></p>
-
-                    <div id="outputDiv"></div>
-
                 </div>
                 <!-- end: Main Menu -->
 
