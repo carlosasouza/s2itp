@@ -49,7 +49,12 @@ class ServiceController {
         $pdo = Connection::getConnection();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-        $stmt = $pdo->prepare("SELECT DISTINCT MAX(`onibus_posicao`.`Posicao_idposicao`) as `ultima_posicao`, `onibus`.`id`, `posicao`.`latitude`, `posicao`.`longitude`, `linha`.`numeroLinha`  FROM `onibus`, `linha`, `posicao`, `onibus_posicao` WHERE `onibus_posicao`.`onibus_linha_id` = `onibus`.`linha_id` AND `onibus`.`id` = `onibus_posicao`.`onibus_id` AND (SELECT MAX(`onibus_posicao`.`Posicao_idposicao`) FROM `onibus_posicao`) = `posicao`.`idposicao` AND `onibus`.`linha_id` = `linha`.`id` AND `onibus`.`circulacao` = 1 AND `linha`.`id` = ?");
+        $stmt = $pdo->prepare("SELECT DISTINCT `linha`.`id` AS `idlinha`, `linha`.`numeroLinha`, `onibus`.`id`AS `idonibus`, MAX(`posicao`.`idposicao`) AS `ultima_posicao`, `posicao`.`latitude`, `posicao`.`longitude`
+FROM `linha`, `onibus`, `onibus_posicao`, `posicao`
+WHERE `linha`.`id` = `onibus`.`linha_id` AND
+`onibus`.`id` = `onibus_posicao`.`onibus_id` AND
+`linha`.`id` = `onibus_posicao`.`onibus_linha_id` AND
+`onibus`.`linha_id` = `onibus_posicao`.`onibus_linha_id` AND `onibus_posicao`.`Posicao_idposicao` = `posicao`.`idposicao` AND `linha`.`id` = ?");
         $stmt->bindParam(1, $idLinha, PDO::PARAM_STR);
         $stmt->execute();
         
@@ -92,7 +97,7 @@ class ServiceController {
         $valorExpresao2 = 2 * atan2(sqrt($valorExpresao1), sqrt(1 - $valorExpresao1));
 
         $distancia = $raioTerra * $valorExpresao2 * 1000;
-        $velocidade = (60 * 1000 / 60);
+        $velocidade = (50 * 1000 / 60);
                  
         $tempo = ($distancia/$velocidade);
          
@@ -192,12 +197,13 @@ class ServiceController {
         
     }
     
-    function populaInformativo(){
+    function populaInformativo($id){
         $pdo = Connection::getConnection();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-        $stmt = $pdo->prepare("SELECT DISTINCT `onibus`.`id`, `linha`.`numeroLinha`, `linha`.`origem`, `linha`.`destino`,  `posicao`.`latitude`, `posicao`.`longitude` FROM `linha`, `linha_parada`, `parada`, `posicao`, `onibus`, `onibus_posicao` WHERE `parada`.`id` = 1 AND `parada`.`id` = `linha_parada`.`parada_id` AND `linha_parada`.`linha_id` = `linha`.`id` AND `linha`.`id` = `onibus`.`linha_id` AND `onibus`.`id` = `onibus_posicao`.`onibus_id` AND `onibus_posicao`.`posicao_idposicao` = `posicao`.`idposicao` ORDER BY `numeroLinha`");
-        $result = $stmt->execute();
+        $stmt = $pdo->prepare("SELECT DISTINCT `onibus`.`id`, `linha`.`numeroLinha`, `linha`.`origem`, `linha`.`destino`, `posicao`.`latitude`, `posicao`.`longitude` , `parada`.`nome`, `parada`.`latitude`, `parada`.`longitude` FROM `linha`, `linha_parada`, `parada`, `posicao`, `onibus`, `onibus_posicao` WHERE `parada`.`id` = ? AND `parada`.`id` = `linha_parada`.`parada_id` AND `linha_parada`.`linha_id` = `linha`.`id` AND `linha`.`id` = `onibus`.`linha_id` AND `onibus`.`id` = `onibus_posicao`.`onibus_id` AND `onibus_posicao`.`posicao_idposicao` = `posicao`.`idposicao` AND `onibus`.`circulacao` = 1 ORDER BY `numeroLinha`");
+        $stmt->bindParam(1, $id, PDO::PARAM_STR);
+        $stmt->execute();
         $array = $stmt->fetchAll();
 
         if (is_array($array))
