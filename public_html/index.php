@@ -4,8 +4,6 @@ include_once '../app/controller/serviceController.php';
 
 $serviceController = new ServiceController();
 
-$idParada = 8;
-
 $cidades = $serviceController->recuperaCidades();
 
 ?>

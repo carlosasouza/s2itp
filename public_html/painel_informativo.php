@@ -8,6 +8,15 @@ $dados = $serviceController->populaInformativo();
 
 date_default_timezone_set("Brazil/East");
 
+if(!isset($_REQUEST['id'])){
+        echo'<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">alert ("Parada sem identificação!")</SCRIPT>';
+        die;
+}
+
+$idParada = $_REQUEST['id'];
+
+$parada = $serviceController->recuperaParada($idParada);
+
 ?>
 
 ﻿<!DOCTYPE html>

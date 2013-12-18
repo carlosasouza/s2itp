@@ -66,9 +66,9 @@ if(isset($_REQUEST['onibus'])){
                     lat: ".@$parada[0]['latitude'].",
                     lng: ".@$parada[0]['longitude'].",
                     icon: ".@$paradaIcon.",
-                    title: '".@$parada[0]['nome']."',
+                    title: '".utf8_encode(@$parada[0]['nome'])."',
                     infoWindow: {
-                        content: 'Parada: ".@$parada[0]['nome']."'
+                        content: 'Parada: ".utf8_encode(@$parada[0]['nome'])."'
                     }
                 });                
 

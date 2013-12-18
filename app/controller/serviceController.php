@@ -25,7 +25,11 @@ class ServiceController {
         
         $idPosicao = $pdo->lastInsertId();
         
-        $onibusLinhaId = 1;
+        $stmt = $pdo->prepare("SELECT `linha`.`id` FROM `onibus`, `linha` WHERE `onibus`.`id` = ? AND `onibus`.`linha_id` = `linha`.`id`");
+        $stmt->bindParam(1, $id, PDO::PARAM_STR);
+        $stmt->execute();
+        
+        $onibusLinhaId = $stmt->fetchColumn();
         
         $stmt = $pdo->prepare("INSERT INTO `onibus_posicao`(`onibus_id`, `onibus_linha_id`, `Posicao_idposicao`) VALUES (?, ?, ?)");
         $stmt->bindParam(1, $id, PDO::PARAM_STR);
@@ -45,7 +49,7 @@ class ServiceController {
         $pdo = Connection::getConnection();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 
-        $stmt = $pdo->prepare("SELECT DISTINCT `onibus`.`id`, `posicao`.`latitude`, `posicao`.`longitude`, `linha`.`numeroLinha` FROM `onibus`, `linha`, `posicao`, `onibus_posicao` WHERE `onibus`.`id` = `onibus_posicao`.`onibus_id` AND `onibus_posicao`.`Posicao_idposicao` = `posicao`.`idposicao` AND `onibus`.`linha_id` = `linha`.`id` AND `onibus`.`circulacao` = 1 AND `linha`.`id` = ?");
+        $stmt = $pdo->prepare("SELECT DISTINCT MAX(`onibus_posicao`.`Posicao_idposicao`) as `ultima_posicao`, `onibus`.`id`, `posicao`.`latitude`, `posicao`.`longitude`, `linha`.`numeroLinha`  FROM `onibus`, `linha`, `posicao`, `onibus_posicao` WHERE `onibus_posicao`.`onibus_linha_id` = `onibus`.`linha_id` AND `onibus`.`id` = `onibus_posicao`.`onibus_id` AND (SELECT MAX(`onibus_posicao`.`Posicao_idposicao`) FROM `onibus_posicao`) = `posicao`.`idposicao` AND `onibus`.`linha_id` = `linha`.`id` AND `onibus`.`circulacao` = 1 AND `linha`.`id` = ?");
         $stmt->bindParam(1, $idLinha, PDO::PARAM_STR);
         $stmt->execute();
         
